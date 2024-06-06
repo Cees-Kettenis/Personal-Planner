@@ -21,11 +21,11 @@ defmodule PersonalPlanner.AccountsTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{name: "some name", email: "some email"}
+      valid_attrs = %{name: "some name", email: "someemail@email.com"}
 
       assert {:ok, %User{} = user} = Accounts.create_user(valid_attrs)
       assert user.name == "some name"
-      assert user.email == "some email"
+      assert user.email == "someemail@email.com"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -34,11 +34,11 @@ defmodule PersonalPlanner.AccountsTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{name: "some updated name", email: "some updated email"}
+      update_attrs = %{name: "some updated name", email: "someupdatedemail@email.com"}
 
       assert {:ok, %User{} = user} = Accounts.update_user(user, update_attrs)
       assert user.name == "some updated name"
-      assert user.email == "some updated email"
+      assert user.email == "someupdatedemail@email.com"
     end
 
     test "update_user/2 with invalid data returns error changeset" do

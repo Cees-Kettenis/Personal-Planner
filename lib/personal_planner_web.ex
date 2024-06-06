@@ -16,7 +16,6 @@ defmodule PersonalPlannerWeb do
   below. Instead, define additional modules and import
   those modules here.
   """
-
   def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
 
   def router do
@@ -86,6 +85,9 @@ defmodule PersonalPlannerWeb do
       # Core UI components and translation
       import PersonalPlannerWeb.CoreComponents
       import PersonalPlannerWeb.Gettext
+
+      # Self Defined gobal helper functions
+      import PersonalPlannerWebUtils
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

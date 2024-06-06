@@ -10,8 +10,8 @@
 <.table id="users" rows={@users} row_click={&JS.navigate(~p"/users/#{&1}")}>
   <:col :let={user} label="Name"><%= user.name %></:col>
   <:col :let={user} label="Email"><%= user.email %></:col>
-    <:col :let={user} label="Created At"><%= user.inserted_at %></:col>
-    <:col :let={user} label="Updated At"><%= user.updated_at %></:col>
+    <:col :let={user} label="Created At"><%= formatDate(user.inserted_at) %></:col>
+    <:col :let={user} label="Updated At"><%= formatDate(user.updated_at) %></:col>
 
   <:action :let={user}>
     <div class="sr-only">
