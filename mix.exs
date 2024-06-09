@@ -58,7 +58,10 @@ defmodule PersonalPlanner.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:argon2_elixir, "~> 4.0"},
+      {:elixir_make, "~> 0.8.4"},
+      {:comeonin, "~> 5.4"}
     ]
   end
 
