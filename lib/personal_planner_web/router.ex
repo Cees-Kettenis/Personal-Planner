@@ -18,6 +18,7 @@ defmodule PersonalPlannerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/signup", UserController, :signup
     resources "/users", UserController
 
   end

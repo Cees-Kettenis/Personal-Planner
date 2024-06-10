@@ -6,12 +6,17 @@ defmodule PersonalPlannerWeb.UserController do
 
   def index(conn, _params) do
     users = Accounts.list_users()
-    render(conn, :index, users: users)
+    render(conn, :index, users: users, page_title: "User Management")
   end
 
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
-    render(conn, :new, changeset: changeset)
+    render(conn, :new, changeset: changeset, page_title: "Create User")
+  end
+
+  def signup(conn, _params) do
+    changeset = Accounts.change_user(%User{})
+    render(conn, :signup, changeset: changeset, page_title: "Sign up")
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -28,13 +33,13 @@ defmodule PersonalPlannerWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, :show, user: user)
+    render(conn, :show, user: user, page_title: "View user | " <> user.name)
   end
 
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     changeset = Accounts.change_user(user)
-    render(conn, :edit, user: user, changeset: changeset)
+    render(conn, :edit, user: user, changeset: changeset, page_title: "Update User | "  <> user.name)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
