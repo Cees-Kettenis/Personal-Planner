@@ -18,6 +18,9 @@ defmodule PersonalPlannerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/login", SessionController, :new
+    get "/login", SessionController, :create
+    get "/logout", SessionController, :delete
     get "/signup", UserController, :signup
     resources "/users", UserController
 
