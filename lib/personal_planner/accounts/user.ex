@@ -10,19 +10,20 @@ defmodule PersonalPlanner.Accounts.User do
     timestamps(type: :utc_datetime)
 
     field :password, :string, virtual: true
-    field :password_confirm, string, virtual: true
+    field :password_confirm, :string, virtual: true
   end
 
   @doc false
 
   @valid_email_regex ~r/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  @required_fields [:name, :email, :password, :password_confirmation]
+  @required_fields [:name, :email, :password, :password_confirm]
   def changeset(user, attrs) do
     user
     |> cast(attrs,  @required_fields)
     |> validate_required(@required_fields)
     |> validate_length(:email, max: 255)
     |> validate_format(:email, @valid_email_regex)
+    |> validate_length(:password, min: 6)
     |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email)
     |> validate_confirmation(:password, message: "does not match password")
@@ -33,7 +34,7 @@ defmodule PersonalPlanner.Accounts.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         if password do
-          put_change(changeset, :password_hash, Argon2.has_pwd_salt(password))
+          put_change(changeset, :password_hash, Argon2.hash_pwd_salt(password))
         else
           changeset
         end

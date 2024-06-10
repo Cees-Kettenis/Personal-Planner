@@ -12,7 +12,9 @@ defmodule PersonalPlanner.AccountsFixtures do
       attrs
       |> Enum.into(%{
         email: "someemail@email.com",
-        name: "some name"
+        name: "some name",
+        password: "foo bar",
+        password_confirm: "foo bar"
       })
       |> PersonalPlanner.Accounts.create_user()
 
