@@ -8,8 +8,30 @@
     <div class="flex items-center gap-4 font-semibold leading-6">
       <.link href={~p"/"} class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">Home</.link>
       <%= if @current_user do %>
-        <.link href={~p"/logout"} class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">Log out</.link>
+       <div class="relative inline-block text-left">
+          <div class="group">
+              <button type="button"
+                  class="inline-flex justify-center items-center w-full px-4 py-2 text-sm font-medium hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">
+                 <img src={gravatar_for(@current_user)} class="mr-1 rounded-full size-7" /> <%= @current_user.name %>
+                  <!-- Dropdown arrow -->
+                  <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+                  </svg>
+              </button>
 
+              <!-- Dropdown menu -->
+              <div
+                  class="absolute left-0 w-40 origin-top-left p-2 bg-neutral-800 pl-2 border-white border-2 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
+                  <div class="py-1 inline-flex justify-center items-center hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">
+                  <div class="pr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                    </svg></div>
+                    <.link href={~p"/logout"} class="">Log out</.link>
+                  </div>
+              </div>
+          </div>
+      </div>
        <% else %>
         <.link href={~p"/signup"} class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">Signup</.link>
         <.link href={~p"/login"} class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">Login</.link>
