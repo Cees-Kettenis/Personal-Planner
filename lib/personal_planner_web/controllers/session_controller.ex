@@ -32,6 +32,7 @@ defmodule PersonalPlannerWeb.SessionController do
   end
 
   def delete(conn, _params) do
-    render(conn, "new.html", page_title: "Log Out")
+    conn |> AuthPlug.logout() |> redirect(to: ~p"/")
+
   end
 end
