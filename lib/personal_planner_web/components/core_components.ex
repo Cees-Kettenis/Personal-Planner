@@ -232,7 +232,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
       type={@type}
       class={[
         "phx-submit-loading:opacity-75 rounded-lg py-2 px-3",
-        "text-sm font-semibold leading-6 border border-f0f0f0 rounded hover:bg-white hover:text-black focus:bg-white focus:text-black",
+        "text-sm font-semibold leading-6 border border-f0f0f0 rounded hover:bg-amber-600 focus:bg-amber-600",
         @class
       ]}
       {@rest}
@@ -335,7 +335,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="mt-2 block w-full rounded-md border border-gray-300  shadow-sm sm:text-sm"
+        class="mt-2 block w-full rounded-md border border-amber-600  shadow-sm sm:text-sm"
         multiple={@multiple}
         {@rest}
       >
@@ -356,8 +356,8 @@ defmodule PersonalPlannerWeb.CoreComponents do
         name={@name}
         class={[
           "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm:text-sm sm:leading-6",
-          "min-h-[6rem] phx-no-feedback:border-008B8B phx-no-feedback:focus:border-008B8B",
-          @errors == [] && "border-008B8B focus:border-008B8B",
+          "min-h-[6rem] phx-no-feedback:border-008B8B phx-no-feedback:focus:border-amber-600",
+          @errors == [] && "border-008B8B focus:border-amber-600",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
         {@rest}
@@ -379,8 +379,8 @@ defmodule PersonalPlannerWeb.CoreComponents do
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
           "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm:text-sm sm:leading-6 border-2",
-          "phx-no-feedback:border-008B8B phx-no-feedback:focus:border-008B8B",
-          @errors == [] && "border-008B8B focus:border-008B8B",
+          "phx-no-feedback:border-008B8B phx-no-feedback:focus:border-amber-600",
+          @errors == [] && "border-008B8B focus:border-amber-600",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
         {@rest}
@@ -563,7 +563,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
     <div class="mt-16">
       <.link
         navigate={@navigate}
-        class="text-sm font-semibold leading-6 hover:underline focus:underline"
+        class="text-sm font-semibold leading-6 hover:underline hover:text-amber-600 focus:text-amber-600 focus:underline"
       >
         <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
         <%= render_slot(@inner_block) %>
