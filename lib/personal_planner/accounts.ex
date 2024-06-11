@@ -101,4 +101,20 @@ defmodule PersonalPlanner.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+  def authenticate_by_email_and_pass(email, given_pass) do
+    user = Repo.get_by(User, email: email)
+
+    cond do
+      user && Argon2.verify_pass(given_pass, user.password_hash) ->
+        {:ok, user}
+
+      user ->
+        {:error, :unauthorized}
+
+      true ->
+        Argon2.no_user_verify()
+        {:error, :not_found}
+    end
+  end
 end

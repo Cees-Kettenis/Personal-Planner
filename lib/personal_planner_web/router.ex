@@ -8,6 +8,7 @@ defmodule PersonalPlannerWeb.Router do
     plug :put_root_layout, html: {PersonalPlannerWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug PersonalPlannerWeb.AuthPlug
   end
 
   pipeline :api do
@@ -19,8 +20,8 @@ defmodule PersonalPlannerWeb.Router do
 
     get "/", PageController, :home
     get "/login", SessionController, :new
-    get "/login", SessionController, :create
-    get "/logout", SessionController, :delete
+    post "/login", SessionController, :create, as: :login
+    delete "/logout", SessionController, :delete, as: :logout
     get "/signup", UserController, :signup
     resources "/users", UserController
 
