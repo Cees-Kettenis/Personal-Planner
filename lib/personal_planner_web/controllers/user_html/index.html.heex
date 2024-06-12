@@ -17,10 +17,10 @@
     <div class="sr-only">
       <.link navigate={~p"/users/#{user}"}>Show</.link>
     </div>
-    <.link navigate={~p"/users/#{user}/edit"}>Edit</.link>
+    <.link navigate={~p"/users/#{user}/edit"}  class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">Edit</.link>
   </:action>
   <:action :let={user}>
-    <.link href={~p"/users/#{user}"} method="delete" data-confirm="Are you sure?">
+    <.link href={~p"/users/#{user}"} method="delete" data-confirm="Are you sure?" class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">
       Delete
     </.link>
   </:action>
