@@ -58,7 +58,7 @@ defmodule PersonalPlannerWeb.AuthPlug do
     #otherwise we want to just return the con to continue the chain above
     if remember_login do
       token = PersonalPlanner.Token.gen_remember_token(user)
-      put_resp_cookie(conn, "remember_token", token, max_age: @cookie_max_age)
+      conn |> put_resp_cookie("remember_token", token, max_age: @cookie_max_age)
     else
       conn
     end
