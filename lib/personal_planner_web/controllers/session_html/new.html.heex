@@ -1,17 +1,18 @@
+<div class="mx-auto max-w-2xl">
 <.header>
   Log In
   <:subtitle>If you already have an account login below.</:subtitle>
 </.header>
 
-
 <.simple_form for={@form} action={~p"/login"}>
-      <.input field={@form[:email]} name="session[email]" value="" type="text" label="Email" />
-      <.input field={@form[:password]} name="session[password]" value="" type="password" label="password" />
-      <.input field={@form[:rememberme]} name="session[rememberme]" value="" type="checkbox" label="Remember me?" />
+  <.input field={@form[:email]} name="session[email]" value="" type="text" label="Email" />
+  <.input field={@form[:password]} name="session[password]" value="" type="password" label="password" />
+  <.input field={@form[:rememberme]} name="session[rememberme]" value="" type="checkbox" label="Remember me?" />
 
-      <:actions>
-        <.button>Log In</.button>
-      </:actions>
-    </.simple_form>
+  <:actions>
+    <.button>Log In</.button>
+  </:actions>
+</.simple_form>
 
 <.back navigate={~p"/signup"}>Not a user? Signup here!</.back>
+</div>
