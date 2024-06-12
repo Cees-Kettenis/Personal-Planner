@@ -6,13 +6,10 @@ defmodule PersonalPlannerWeb.SessionController do
 
   def new(conn, _params) do
 
-    render(conn, :new, page_title: "Log In", form: %{"email" => "", "password" => "", "name" => ""})
+    render(conn, :new, page_title: "Log In", form: %{})
   end
 
   def create(conn, %{"session" => session_params}) do
-    IO.inspect(session_params["email"])
-    IO.inspect(session_params["password"])
-
     case Accounts.authenticate_by_email_and_pass(
            String.downcase(session_params["email"]),
            session_params["password"]
@@ -27,7 +24,7 @@ defmodule PersonalPlannerWeb.SessionController do
         conn
         # Create an error message.
         |> put_flash(:error, "Invalid email/password combination")
-        |> render("new.html", page_title: "Log In", form: %{"email" => "", "password" => "", "name" => ""})
+        |> render("new.html", page_title: "Log In", form: %{})
     end
   end
 

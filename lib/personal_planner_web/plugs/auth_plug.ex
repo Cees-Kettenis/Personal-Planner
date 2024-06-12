@@ -46,7 +46,10 @@ defmodule PersonalPlannerWeb.AuthPlug do
   end
 
   def logout(conn) do
-    conn |> configure_session(drop: true) |> assign(:current_user, nil)
+    conn
+    |> delete_resp_cookie("remember_token")
+    |> configure_session(drop: true)
+    |> assign(:current_user, nil)
   end
 
   def remember(conn, user) do
