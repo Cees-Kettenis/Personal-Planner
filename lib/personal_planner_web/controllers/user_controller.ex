@@ -4,6 +4,8 @@ defmodule PersonalPlannerWeb.UserController do
   alias PersonalPlanner.Accounts
   alias PersonalPlanner.Accounts.User
 
+  plug :logged_in_user when action in [:index, :edit, :update, :new, :show, :delete]
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, :index, users: users, page_title: "User Management")
@@ -21,10 +23,10 @@ defmodule PersonalPlannerWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: ~p"/users/#{user}")
+        |> redirect(to: ~p"/login")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)

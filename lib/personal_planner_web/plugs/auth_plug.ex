@@ -1,7 +1,11 @@
 defmodule PersonalPlannerWeb.AuthPlug do
   import Plug.Conn
+  import Phoenix.Controller
 
   alias PersonalPlanner.Accounts
+  use Phoenix.VerifiedRoutes,
+  endpoint: PersonalPlannerWeb.Endpoint,
+  router: PersonalPlannerWeb.Router
 
   @cookie_max_age 604800
 
@@ -61,6 +65,17 @@ defmodule PersonalPlannerWeb.AuthPlug do
       conn |> put_resp_cookie("remember_token", token, max_age: @cookie_max_age)
     else
       conn
+    end
+  end
+
+  def logged_in_user(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Please log in.")
+      |> redirect(to: ~p"/login")
+      |> halt()
     end
   end
 end
