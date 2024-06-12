@@ -19,11 +19,12 @@ defmodule PersonalPlannerWeb.AuthPlug do
       user_id = get_session(conn, :user_id) ->
         assign(conn, :current_user, Accounts.get_user!(user_id))
 
+
       token = conn.cookies["remember_token"] ->
         case PersonalPlanner.Token.verify_remember_token(token) do
           {:ok, user_id} ->
             if user = Accounts.get_user!(user_id) do
-              login(conn, user)
+              login(conn, user, true) #since we have a remember token when we login we of course want to remember it.
             else
               logout(conn)
             end
@@ -37,10 +38,10 @@ defmodule PersonalPlannerWeb.AuthPlug do
     end
   end
 
-  def login(conn, user) do
+  def login(conn, user, remember_login) do
     conn
     |> assign(:current_user, user)
-    |> remember(user)
+    |> remember(user, remember_login) #i do not know how to do if else with pipe so i pass it along to the remember function.
     |> put_session(:user_id, user.id)
     |> configure_session(renew: true)
   end
@@ -52,9 +53,14 @@ defmodule PersonalPlannerWeb.AuthPlug do
     |> assign(:current_user, nil)
   end
 
-  def remember(conn, user) do
-    token = PersonalPlanner.Token.gen_remember_token(user)
-    put_resp_cookie(conn, "remember_token", token, max_age: @cookie_max_age)
+  def remember(conn, user, remember_login) do
+    #if we want to remember our login with a cookie then we generate the token.
+    #otherwise we want to just return the con to continue the chain above
+    if remember_login do
+      token = PersonalPlanner.Token.gen_remember_token(user)
+      put_resp_cookie(conn, "remember_token", token, max_age: @cookie_max_age)
+    else
+      conn
+    end
   end
-
 end
