@@ -21,7 +21,7 @@ defmodule PersonalPlannerWeb.SessionController do
         conn
         |> AuthPlug.login(user, remember_me)
         |> put_flash(:info, "Welcome to PlanCraft " <> user.name)
-        |> redirect(to: ~p"/users/#{user}")
+        |> AuthPlug.redirect_back_or(~p"/users/#{user}")
       # Log the user in and redirect to the user's show page.
       {:error, _reason} ->
         conn
