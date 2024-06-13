@@ -1,9 +1,19 @@
 <div class="mx-auto max-w-2xl">
-<.header>
-  Edit User <%= @user.id %>
-  <:subtitle>Use this form to manage user records in your database.</:subtitle>
-</.header>
-
+  <div class="flex w-100">
+    <div class="w-2/6 mr-2">
+      <img src={gravatar_for(@user)} />
+      <.icon name="hero-camera-solid" class="h-3 w-3" />
+      <.link href={"https://gravatar.com/profile/avatars"} class="text-sm font-semibold leading-6 hover:underline hover:text-amber-600 focus:text-amber-600 focus:underline" target="_blank">Change image</.link>
+    </div>
+    <div class="w-3/6">
+      <.header>
+        Editing user <%= @user.name %>
+        <:subtitle>See below the user details.</:subtitle>
+    </.header>
+  </div>
+  <div class="w-1/6">
+  </div>
+</div>
 <.user_form changeset={@changeset} action={~p"/users/#{@user}"} />
 
 <.back navigate={~p"/users"}>Back to users</.back>

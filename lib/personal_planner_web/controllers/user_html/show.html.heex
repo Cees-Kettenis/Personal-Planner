@@ -1,17 +1,28 @@
-<.header>
-<h1> <img src={gravatar_for(@user)} />  </h1>
-  User <%= @user.id %>
-  <:subtitle>This is a user record from your database.</:subtitle>
-  <:actions>
+<div class="mx-auto max-w-2xl">
+  <div class="flex w-100">
+    <div class="w-2/6 mr-2">
+      <img src={gravatar_for(@user)} />
+      <.icon name="hero-camera-solid" class="h-3 w-3" />
+      <.link href={"https://gravatar.com/profile/avatars"} class="text-sm font-semibold leading-6 hover:underline hover:text-amber-600 focus:text-amber-600 focus:underline">Change image</.link>
+    </div>
+    <div class="w-3/6">
+      <.header>
+        Viewing user <%= @user.name %>
+        <:subtitle>See below the user details.</:subtitle>
+    </.header>
+  </div>
+  <div class="w-1/6">
     <.link href={~p"/users/#{@user}/edit"}>
       <.button>Edit user</.button>
     </.link>
-  </:actions>
-</.header>
+  </div>
+</div>
 
 <.list>
   <:item title="Name"><%= @user.name %></:item>
   <:item title="Email"><%= @user.email %></:item>
+  <:item title="Member Since"><%= formatDate(@user.inserted_at) %></:item>
 </.list>
 
 <.back navigate={~p"/users"}>Back to users</.back>
+</div>
