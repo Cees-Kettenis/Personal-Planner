@@ -7,3 +7,48 @@ body{
     background:#353535;
     color:#f0f0f0 !important;
 }
+
+/* Flop table styling */
+#user-table{
+    width:100%;
+}
+#user-table th{
+    text-align: left;
+}
+.pagination{
+    display: flex;
+    align-items: center;
+    gap:0.5em;
+}
+.pagination-list{
+    display: flex;
+    gap:0.5em;
+}
+.pagination-previous, .pagination-next{
+    /* padding-left:0.5em;
+    padding-right:0.5em;
+    padding-bottom:0.5em;
+    padding-top:0.5em; */
+}
+.pagination-list li a{
+    width:2em;
+    height:2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.pagination-list li:hover{
+    background-color: rgb(217, 119, 6);
+}
+.pagination-list li:has(a.is-current){
+    background-color: rgb(217, 119, 6);
+
+}
+.pagination-previous:not(.disabled):hover, .pagination-next:not(.disabled):hover{
+    color: rgb(217, 119, 6);
+    text-decoration: underline;
+}
+.pagination-previous.disabled, .pagination-next.disabled{
+    color:rgb(240, 240, 240, 0.5);
+}

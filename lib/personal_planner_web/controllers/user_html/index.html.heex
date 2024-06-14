@@ -7,11 +7,15 @@
   </:actions>
 </.header>
 
-<.table id="users" rows={@users} row_click={&JS.navigate(~p"/users/#{&1}")}>
+<%!-- <.table id="users" rows={@users} row_click={&JS.navigate(~p"/users/#{&1}")}> --%>
+<Flop.Phoenix.pagination meta={@meta} path={~p"/users"} />
+<Flop.Phoenix.table items={@users} meta={@meta} path={~p"/users"}>
+  <:col :let={user} label=""><img class="h-16 w-16" src={gravatar_for(user)} /></:col>
+
   <:col :let={user} label="Name"><%= user.name %></:col>
   <:col :let={user} label="Email"><%= user.email %></:col>
-    <:col :let={user} label="Created At"><%= formatDate(user.inserted_at) %></:col>
-    <:col :let={user} label="Updated At"><%= formatDate(user.updated_at) %></:col>
+  <:col :let={user} label="Member Since"><%= formatDate(user.inserted_at) %></:col>
+   <:col :let={user} label="Role"></:col>
 
   <:action :let={user}>
     <div class="sr-only">
@@ -24,4 +28,5 @@
       Delete
     </.link>
   </:action>
-</.table>
+</Flop.Phoenix.table>
+<Flop.Phoenix.pagination meta={@meta} path={~p"/users"} />

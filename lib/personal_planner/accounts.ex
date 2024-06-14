@@ -8,7 +8,7 @@ defmodule PersonalPlanner.Accounts do
 
   alias PersonalPlanner.Accounts.User
 
-  @doc """
+@doc """
   Returns the list of users.
 
   ## Examples
@@ -17,8 +17,9 @@ defmodule PersonalPlanner.Accounts do
       [%User{}, ...]
 
   """
-  def list_users do
-    Repo.all(User)
+  def list_users(params) do
+    params = Map.update(params, "page_size", 10, &(&1))
+    Flop.validate_and_run(User, params, for: User)
   end
 
   @doc """

@@ -6,9 +6,10 @@ defmodule PersonalPlannerWeb.UserController do
 
   plug :logged_in_user when action in [:index, :new, :show, :edit, :update, :delete]
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
-    render(conn, :index, users: users, page_title: "User Management")
+  def index(conn, params) do
+    with {:ok, {users, meta}} <- Accounts.list_users(params) do
+      render(conn, :index, meta: meta, users: users, page_title: "User Management")
+    end
   end
 
   def new(conn, _params) do

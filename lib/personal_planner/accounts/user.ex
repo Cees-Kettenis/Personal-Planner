@@ -2,6 +2,12 @@ defmodule PersonalPlanner.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {
+    Flop.Schema,
+    filterable: [:name, :email],
+    sortable: [:name, :email]
+  }
+
   schema "users" do
     field :name, :string
     field :email, :string

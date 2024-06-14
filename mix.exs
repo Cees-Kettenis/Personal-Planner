@@ -61,7 +61,11 @@ defmodule PersonalPlanner.MixProject do
       {:timex, "~> 3.0"},
       {:argon2_elixir, "~> 3.2"},
       {:elixir_make, "~> 0.6.0"},
-      {:comeonin, "~> 5.3"}
+      {:comeonin, "~> 5.3"},
+      {:faker, "~> 0.18.0"},
+      {:nimble_options, "~> 1.1"},
+      {:flop, "~> 0.25.0"},
+      {:flop_phoenix, "~> 0.22.9"}
     ]
   end
 
