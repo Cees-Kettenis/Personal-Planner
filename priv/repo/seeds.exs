@@ -20,10 +20,22 @@ additional_user = %User{
   email: "ckettenis@gmail.com",
   password_hash: Argon2.hash_pwd_salt("specialpassword"),
   inserted_at: date,
-  updated_at: date
+  updated_at: date,
+  admin: true
 }
 
 PersonalPlanner.Repo.insert(additional_user)
+
+additional_user_2 = %User{
+  name: "Cees Kettenis",
+  email: "ckettenis@neptrix.com",
+  password_hash: Argon2.hash_pwd_salt("specialpassword"),
+  inserted_at: date,
+  updated_at: date,
+  admin: false
+}
+
+PersonalPlanner.Repo.insert(additional_user_2)
 
 # users = for n <- 1..100 do
 #   IO.inspect(n)

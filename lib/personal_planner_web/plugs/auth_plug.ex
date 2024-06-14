@@ -23,7 +23,6 @@ defmodule PersonalPlannerWeb.AuthPlug do
       user_id = get_session(conn, :user_id) ->
         assign(conn, :current_user, Accounts.get_user!(user_id))
 
-
       token = conn.cookies["remember_token"] ->
         case PersonalPlanner.Token.verify_remember_token(token) do
           {:ok, user_id} ->
@@ -94,6 +93,30 @@ defmodule PersonalPlannerWeb.AuthPlug do
       |> store_location()
       |> put_flash(:error, "Please log in.")
       |> redirect(to: ~p"/login")
+      |> halt()
+    end
+  end
+
+  def is_user_admin(conn, _opts) do
+    IO.inspect(conn.assigns.current_user)
+    if conn.assigns.current_user.admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You are not admin, please contact admin if you need something changed.")
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+
+  def is_user_updating_themselves_or_admin(conn, _opts) do
+    user_id = String.to_integer(conn.params["id"])
+    if conn.assigns.current_user.id == user_id || conn.assigns.current_user.admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You are not admin, you cannot update other users.")
+      |> redirect(to: ~p"/")
       |> halt()
     end
   end

@@ -12,7 +12,7 @@ defmodule PersonalPlanner.Accounts.User do
     field :name, :string
     field :email, :string
     field :password_hash, :string
-
+    field :admin, :boolean, default: false
     timestamps(type: :utc_datetime)
 
     field :password, :string, virtual: true

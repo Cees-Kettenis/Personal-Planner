@@ -12,9 +12,11 @@
     </.header>
   </div>
   <div class="w-1/6">
-    <.link href={~p"/users/#{@user}/edit"}>
-      <.button>Edit user</.button>
-    </.link>
+    <%= if @user.id == @current_user.id || @current_user.admin do %>
+      <.link href={~p"/users/#{@user}/edit"}>
+        <.button>Edit user</.button>
+      </.link>
+    <% end %>
   </div>
 </div>
 

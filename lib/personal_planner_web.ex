@@ -43,7 +43,7 @@ defmodule PersonalPlannerWeb do
 
       import Plug.Conn
       import PersonalPlannerWeb.Gettext
-      import PersonalPlannerWeb.AuthPlug, only: [logged_in_user: 2]
+      import PersonalPlannerWeb.AuthPlug, only: [logged_in_user: 2, is_user_admin: 2, is_user_updating_themselves_or_admin: 2]
 
       unquote(verified_routes())
     end

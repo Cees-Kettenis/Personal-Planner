@@ -1,10 +1,13 @@
 <.header>
-  Listing Users
-  <:actions>
-    <.link href={~p"/users/new"}>
-      <.button>New User</.button>
-    </.link>
-  </:actions>
+  Listing Users 
+    <:actions>
+      <%= if @current_user.admin do %>
+        <.link href={~p"/users/new"}>
+          <.button>New User</.button>
+        </.link>
+      <% end %>
+   </:actions>
+
 </.header>
 
 <%!-- <.table id="users" rows={@users} row_click={&JS.navigate(~p"/users/#{&1}")}> --%>
@@ -16,19 +19,18 @@
   <:col :let={user} label="Name"><%= user.name %></:col>
   <:col :let={user} label="Email"><%= user.email %></:col>
   <:col :let={user} label="Member Since"><%= formatDate(user.inserted_at) %></:col>
-   <:col :let={user} label="Role"></:col>
+  <:col :let={user} label="Role">
+    <%= if user.admin do "Admin" else "Member" end %>
+  </:col>
+   
+<:action :let={user}>
+    <.link navigate={~p"/users/#{user}"} class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600">View</.link>
 
-  <:action :let={user}>
-    <div class="sr-only">
-      <.link navigate={~p"/users/#{user}"}>Show</.link>
-    </div>
-    <.link navigate={~p"/users/#{user}/edit"}  class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">Edit</.link>
-  </:action>
-  <:action :let={user}>
-    <.link href={~p"/users/#{user}"} method="delete" data-confirm="Are you sure?" class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">
-      Delete
-    </.link>
+    <%= if @current_user.admin do %>
+      <.link navigate={~p"/users/#{user}/edit"}  class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600on">Edit</.link>
+      <.link href={~p"/users/#{user}"} method="delete" data-confirm="Are you sure?" class="border px-2 py-1 rounded bg-red-600 hover:bg-red-900 focus:bg-red-900">Delete</.link>  
+    <% end %>
   </:action>
 </Flop.Phoenix.table>
 
-<Flop.Phoenix.pagination meta={@meta} path={~p"/users"} style="margin-top:0.25em" />
+<Flop.Phoenix.pagination meta={@meta} path={~p"/users"} />

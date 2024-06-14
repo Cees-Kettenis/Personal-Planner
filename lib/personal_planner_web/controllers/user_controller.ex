@@ -4,7 +4,9 @@ defmodule PersonalPlannerWeb.UserController do
   alias PersonalPlanner.Accounts
   alias PersonalPlanner.Accounts.User
 
-  plug :logged_in_user when action in [:index, :new, :show, :edit, :update, :delete]
+  plug :logged_in_user when action in [:index, :show]
+  plug :is_user_admin when action in [:new, :delete]
+  plug :is_user_updating_themselves_or_admin when action in [:edit, :update]
 
   def index(conn, params) do
     with {:ok, {users, meta}} <- Accounts.list_users(params) do

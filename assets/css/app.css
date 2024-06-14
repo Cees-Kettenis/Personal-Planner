@@ -15,6 +15,10 @@ body{
 #user-table th{
     text-align: left;
 }
+#user-table tbody td:last-child{
+    display:flex;
+    justify-content: space-evenly;
+}
 .pagination{
     display: flex;
     align-items: center;
