@@ -18,7 +18,6 @@ defmodule PersonalPlanner.Accounts do
 
   """
   def list_users(params) do
-    params = Map.update(params, "page_size", 10, &(&1))
     Flop.validate_and_run(User, params, for: User)
   end
 

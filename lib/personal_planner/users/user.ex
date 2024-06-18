@@ -5,7 +5,8 @@ defmodule PersonalPlanner.Accounts.User do
   @derive {
     Flop.Schema,
     filterable: [:name, :email],
-    sortable: [:name, :email]
+    sortable: [:name, :email],
+    default_limit: 10
   }
 
   schema "users" do
