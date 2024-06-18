@@ -117,4 +117,16 @@ defmodule PersonalPlanner.Accounts do
         {:error, :not_found}
     end
   end
+
+  def activate_user(%User{activated: false} = user) do
+    user |> User.token_changeset(%{
+      activated: true,
+      activated_at: DateTime.truncate(DateTime.utc_now(), :second)
+    })
+    |> Repo.update()
+  end
+
+  def activate_user(%User{activated: true}) do
+    {:error, :already_activated}
+  end
 end

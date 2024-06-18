@@ -23,7 +23,10 @@ defmodule PersonalPlannerWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
-      {:ok, _user} ->
+      {:ok, user} ->
+        activation_token = PersonalPlanner.Token.gen_activation_token(user)
+        PersonalPlanner.SendEmail.account_activation_email(user, activation_token) |> PersonalPlanner.Mailer.deliver()
+
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: ~p"/login")

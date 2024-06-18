@@ -39,6 +39,13 @@ defmodule PersonalPlanner.Accounts.User do
     |> put_password_hash()
   end
 
+  def token_changeset(user, attrs) do
+    user |> cast(attrs , [
+      :activated,
+      :activated_at
+    ])
+  end
+
   defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
@@ -51,4 +58,7 @@ defmodule PersonalPlanner.Accounts.User do
           changeset
     end
   end
+
+
+
 end

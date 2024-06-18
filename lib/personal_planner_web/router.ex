@@ -24,7 +24,7 @@ defmodule PersonalPlannerWeb.Router do
     delete "/logout", SessionController, :delete, as: :logout
     get "/signup", UserController, :signup
     resources "/users", UserController
-
+    resources "/account_activations", AccountActivationController
   end
 
   # Other scopes may use custom stacks.
