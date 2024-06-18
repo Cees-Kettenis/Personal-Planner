@@ -7,7 +7,7 @@ import Config
 # Run `mix help test` for more information.
 config :personal_planner, PersonalPlanner.Repo,
   username: "postgres",
-  password: "postgress",
+  password: "Dagboeka12.",
   hostname: "localhost",
   database: "personal_planner_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
