@@ -11,7 +11,7 @@
 </.header>
 
 <%!-- <.table id="users" rows={@users} row_click={&JS.navigate(~p"/users/#{&1}")}> --%>
-<Flop.Phoenix.pagination meta={@meta} path={~p"/users"} />
+<Flop.Phoenix.pagination meta={@meta} path={~p"/users"}  opts={PersonalPlannerWeb.FlopConfig.pagination_opts()}/>
 
 <Flop.Phoenix.table items={@users} meta={@meta} path={~p"/users"}>
   <:col :let={user} label=""><img class="h-16 w-16" src={gravatar_for(user)} /></:col>
@@ -33,4 +33,4 @@
   </:action>
 </Flop.Phoenix.table>
 
-<Flop.Phoenix.pagination meta={@meta} path={~p"/users"} />
+<Flop.Phoenix.pagination meta={@meta} path={~p"/users"}   opts={PersonalPlannerWeb.FlopConfig.pagination_opts()} />
