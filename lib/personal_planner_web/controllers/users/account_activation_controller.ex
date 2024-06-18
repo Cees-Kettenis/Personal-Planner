@@ -3,7 +3,6 @@ defmodule PersonalPlannerWeb.AccountActivationController do
 
   alias PersonalPlanner.Accounts
   alias PersonalPlanner.Accounts.User
-  alias PersonalPlannerWeb.AuthPlug
 
   def edit(conn, %{"id" => token}) do
     with {:ok, user_id} <- PersonalPlanner.Token.verify_activation_token(token),

@@ -26,7 +26,7 @@ additional_user = %User{
   activated_at: date
 }
 
-# PersonalPlanner.Repo.insert(additional_user)
+ PersonalPlanner.Repo.insert(additional_user)
 
 # additional_user_2 = %User{
 #   name: "Cees Kettenis",
