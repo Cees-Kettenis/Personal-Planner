@@ -21,7 +21,9 @@ additional_user = %User{
   password_hash: Argon2.hash_pwd_salt("specialpassword"),
   inserted_at: date,
   updated_at: date,
-  admin: true
+  admin: true,
+  activated: true,
+  activated_at: date
 }
 
 PersonalPlanner.Repo.insert(additional_user)
@@ -32,21 +34,25 @@ additional_user_2 = %User{
   password_hash: Argon2.hash_pwd_salt("specialpassword"),
   inserted_at: date,
   updated_at: date,
-  admin: false
+  admin: false,
+  activated: true,
+  activated_at: date
 }
 
 PersonalPlanner.Repo.insert(additional_user_2)
 
-# users = for n <- 1..100 do
-#   IO.inspect(n)
-#   name = Faker.Pokemon.En.name()
-#   %{
-#     name: name,
-#     email: "#{name}-#{n}@example.com",
-#     password_hash:  passwordhash,
-#     inserted_at: date,
-#     updated_at: date
-#   }
-# end
+users = for n <- 1..100 do
+  IO.inspect(n)
+  name = Faker.Pokemon.En.name()
+  %{
+    name: name,
+    email: "#{name}-#{n}@example.com",
+    password_hash:  passwordhash,
+    inserted_at: date,
+    updated_at: date,
+    activated: true,
+    activated_at: date
+  }
+end
 
-# PersonalPlanner.Repo.insert_all(User, users)
+PersonalPlanner.Repo.insert_all(User, users)

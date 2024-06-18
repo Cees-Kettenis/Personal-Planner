@@ -17,6 +17,8 @@ defmodule PersonalPlanner.Accounts.User do
 
     field :password, :string, virtual: true
     field :password_confirm, :string, virtual: true
+    field :activated, :boolean, default: false
+    field :activated_at, :utc_datetime
   end
 
   @doc false
