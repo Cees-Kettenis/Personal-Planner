@@ -17,7 +17,8 @@ defmodule PersonalPlanner.Application do
       # Start a worker by calling: PersonalPlanner.Worker.start_link(arg)
       # {PersonalPlanner.Worker, arg},
       # Start to serve requests, typically the last entry
-      PersonalPlannerWeb.Endpoint
+      PersonalPlannerWeb.Endpoint,
+      {Finch, name: Swoosh.Finch}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

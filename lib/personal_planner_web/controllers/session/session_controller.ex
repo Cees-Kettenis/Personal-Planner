@@ -18,16 +18,21 @@ defmodule PersonalPlannerWeb.SessionController do
            session_params["password"]
          ) do
       {:ok, user} ->
-        conn
-        |> AuthPlug.login(user, remember_me)
-        |> put_flash(:info, "Welcome to PlanCraft " <> user.name)
-        |> AuthPlug.redirect_back_or(~p"/users/#{user}")
-      # Log the user in and redirect to the user's show page.
-      {:error, _reason} ->
-        conn
-        # Create an error message.
-        |> put_flash(:error, "Invalid email/password combination")
-        |> render("new.html", page_title: "Log In", form: %{})
+        #if the user is active we want to log in.
+        if user.activated do
+          conn
+          |> AuthPlug.login(user, remember_me)
+          |> put_flash(:info, "Welcome to PlanCraft " <> user.name)
+          |> AuthPlug.redirect_back_or(~p"/users/#{user}")
+        else
+          #we want to redirect them to the home page with a message to activate thier account.
+          conn |> put_flash(:error, "Hello #{user.name}, Please activate your account before trying to log. Please check your email!" )
+               |> redirect(to: ~p"/")
+        end
+        {:error, _reason} ->
+          conn
+          |> put_flash(:error, "Invalid email/password combination")
+          |> redirect(to: ~p"/")
     end
   end
 
