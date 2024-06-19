@@ -14,7 +14,7 @@
   <div class="w-1/6">
   </div>
 </div>
-<.user_form changeset={@changeset} action={~p"/users/#{@user}"} />
+<.user_form changeset={@changeset} action={~p"/users/#{@user}"} current_user_admin={@current_user.admin} />
 
 <.back navigate={~p"/users"}>Back to users</.back>
 </div>

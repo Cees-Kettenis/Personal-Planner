@@ -1,12 +1,14 @@
-<.simple_form :let={f} for={@changeset} action={@action}>
+<.simple_form :let={f} for={@changeset} action={@action} current_user_admin={@current_user_admin}>
   <.error :if={@changeset.action}>
     Oops, something went wrong! Please check the errors below.
   </.error>
   <.input field={f[:name]} type="text" label="Name" />
   <.input field={f[:email]} type="text" label="Email" />
-  <.input field={f[:password]} type="password" label="password" />
+  <.input field={f[:password]} type="password" label="Password" />
   <.input field={f[:password_confirm]} type="password" label="Confirm Password" />
-
+  <%= if @current_user_admin do %>
+    <.input field={f[:admin]} type="checkbox" label="is user admin?" />
+  <% end %>
   <:actions>
     <.button>Save</.button>
   </:actions>

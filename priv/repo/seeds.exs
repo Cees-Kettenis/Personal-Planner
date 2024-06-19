@@ -12,7 +12,7 @@
 
 alias PersonalPlanner.Accounts.User
 
-# passwordhash = Argon2.hash_pwd_salt("foobar")
+passwordhash = Argon2.hash_pwd_salt("foobar")
 date = DateTime.utc_now() |> DateTime.truncate(:second)
 
 additional_user = %User{
@@ -41,18 +41,19 @@ additional_user = %User{
 
 # PersonalPlanner.Repo.insert(additional_user_2)
 
-# users = for n <- 1..1000 do
-#   IO.inspect(n)
-#   name = Faker.Pokemon.En.name()
-#   %{
-#     name: name,
-#     email: "#{name}-#{n}@example.com",
-#     password_hash:  passwordhash,
-#     inserted_at: date,
-#     updated_at: date,
-#     activated: true,
-#     activated_at: date
-#   }
-# end
+users = for n <- 1..20 do
+  IO.inspect(n)
+  name = Faker.Pokemon.En.name()
+  date2 = date |> Timex.shift(minutes: n) |> DateTime.truncate(:second)
+  %{
+    name: name,
+    email: "#{name}-#{n}@example.com",
+    password_hash:  passwordhash,
+    inserted_at: date2,
+    updated_at: date2,
+    activated: true,
+    activated_at: date2
+  }
+end
 
-# PersonalPlanner.Repo.insert_all(User, users)
+PersonalPlanner.Repo.insert_all(User, users)

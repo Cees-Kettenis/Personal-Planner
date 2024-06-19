@@ -8,6 +8,7 @@ defmodule PersonalPlannerWeb.UserHTML do
   """
   attr :changeset, Ecto.Changeset, required: true
   attr :action, :string, required: true
+  attr :current_user_admin, :boolean, required: false
 
   def user_form(assigns)
 end

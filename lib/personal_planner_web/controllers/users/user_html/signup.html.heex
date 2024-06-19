@@ -4,7 +4,7 @@
   <:subtitle>Fill in your information below!</:subtitle>
 </.header>
 
-<.user_form changeset={@changeset} action={~p"/users"} />
+<.user_form changeset={@changeset} action={~p"/users"} current_user_admin={false} />
 
 <.back navigate={~p"/login"}>Back to login</.back>
 </div>

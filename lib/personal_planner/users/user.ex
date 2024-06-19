@@ -5,8 +5,12 @@ defmodule PersonalPlanner.Accounts.User do
   @derive {
     Flop.Schema,
     filterable: [:name, :email],
-    sortable: [:name, :email],
-    default_limit: 10
+    sortable: [:name, :email, :inserted_at],
+    default_limit: 10,
+    default_order: %{
+      order_by: [:inserted_at],
+      order_directions: [:asc]
+    }
   }
 
   schema "users" do
@@ -25,11 +29,12 @@ defmodule PersonalPlanner.Accounts.User do
   @doc false
 
   @valid_email_regex ~r/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  @required_fields [:name, :email, :password, :password_confirm]
+  @attrs_to_save_or_update [:name, :email, :password, :password_confirm, :admin]
+
   def changeset(user, attrs) do
     user
-    |> cast(attrs,  @required_fields)
-    |> validate_required(@required_fields)
+    |> cast(attrs,  @attrs_to_save_or_update)
+    |> validate_required([:name, :email, :password, :password_confirm])
     |> validate_length(:email, max: 255)
     |> validate_format(:email, @valid_email_regex)
     |> validate_length(:password, min: 6)
@@ -37,6 +42,31 @@ defmodule PersonalPlanner.Accounts.User do
     |> unique_constraint(:email)
     |> validate_confirmation(:password, message: "does not match password")
     |> put_password_hash()
+  end
+
+  def update_changeset(user, attrs) do
+    user
+    |> cast(attrs, @attrs_to_save_or_update)
+    |> validate_required([:name, :email])
+    |> validate_blank([:password, :password_confirmation])
+    |> validate_length(:name, max: 50)
+    |> validate_length(:email, max: 255)
+    |> validate_format(:email, @valid_email_regex)
+    |> validate_length(:password, min: 6)
+    |> validate_confirmation(:password, message: "does not match password")
+    |> update_change(:email, &String.downcase/1)
+    |> unique_constraint(:email)
+    |> put_password_hash()
+  end
+
+  defp validate_blank(changeset, fields) do
+    Enum.reduce(fields, changeset, fn field, changeset ->
+      if get_change(changeset, field) == nil do
+        changeset
+      else
+        validate_required(changeset, field)
+      end
+    end)
   end
 
   def token_changeset(user, attrs) do

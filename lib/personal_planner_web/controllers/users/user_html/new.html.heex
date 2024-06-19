@@ -4,7 +4,7 @@
   <:subtitle>Use this form to manage user records in your database.</:subtitle>
 </.header>
 
-<.user_form changeset={@changeset} action={~p"/users"}/>
+<.user_form changeset={@changeset} action={~p"/users"} current_user_admin={@current_user.admin}/>
 
 <.back navigate={~p"/users"}>Back to users</.back>
 </div>
