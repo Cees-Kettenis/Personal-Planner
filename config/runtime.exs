@@ -30,8 +30,6 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
-  config :flop, repo: PersonalPlanner.Repo
-
   config :personal_planner, PersonalPlanner.Repo,
     ssl: true,
     url: database_url,
