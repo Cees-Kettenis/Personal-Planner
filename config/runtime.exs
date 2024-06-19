@@ -30,6 +30,7 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
+
   config :personal_planner, PersonalPlanner.Repo,
     ssl: true,
     url: database_url,
@@ -52,6 +53,7 @@ if config_env() == :prod do
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :personal_planner, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
+  config :flop, repo: PersonalPlanner.Repo
 
   config :personal_planner, PersonalPlannerWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
