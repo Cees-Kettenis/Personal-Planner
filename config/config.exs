@@ -7,6 +7,8 @@
 # General application configuration
 import Config
 
+config :flop, repo: PersonalPlanner.Repo
+
 config :personal_planner,
   ecto_repos: [PersonalPlanner.Repo],
   generators: [timestamp_type: :utc_datetime]

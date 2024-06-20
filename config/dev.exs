@@ -1,7 +1,5 @@
 import Config
 
-config :flop, repo: PersonalPlanner.Repo
-
 # Configure your database
 config :personal_planner, PersonalPlanner.Repo,
   username: "postgres",
