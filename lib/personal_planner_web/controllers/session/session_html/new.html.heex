@@ -5,8 +5,9 @@
 </.header>
 
 <.simple_form for={@form} action={~p"/login"}>
-  <.input field={@form[:email]} name="session[email]" value="" type="text" label="Email" />
-  <.input field={@form[:password]} name="session[password]" value="" type="password" label="password" />
+  <.input field={@form[:email]} name="session[email]" value="" type="text" label="Email:" />
+  <.input field={@form[:password]} name="session[password]" value="" type="password" label="Password:" />
+  <.link href={~p"/password_resets/new"} class="text-sm hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">forgot password?</.link>
   <.input field={@form[:rememberme]} name="session[rememberme]" value="" type="checkbox" label="Remember me?" />
 
   <:actions>

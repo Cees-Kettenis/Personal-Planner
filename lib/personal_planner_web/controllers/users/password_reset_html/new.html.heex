@@ -1,0 +1,16 @@
+<div class="mx-auto max-w-2xl">
+<.header>
+  Reset Password
+  <:subtitle>You can reset your password below.</:subtitle>
+</.header>
+
+<.simple_form for={@form} action={~p"/password_resets"}>
+  <.input field={@form[:email]} name="session[email]" value="" type="text" label="Email:" />
+  <:actions>
+    <.button>Submit</.button>
+  </:actions>
+</.simple_form>
+
+<.back navigate={~p"/signup"}>Not a user? Signup here!</.back>
+
+</div>

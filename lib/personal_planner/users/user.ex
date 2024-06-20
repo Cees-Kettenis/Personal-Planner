@@ -48,7 +48,7 @@ defmodule PersonalPlanner.Accounts.User do
     user
     |> cast(attrs, @attrs_to_save_or_update)
     |> validate_required([:name, :email])
-    |> validate_blank([:password, :password_confirmation])
+    |> validate_blank([:password, :password_confirm])
     |> validate_length(:name, max: 50)
     |> validate_length(:email, max: 255)
     |> validate_format(:email, @valid_email_regex)
@@ -56,6 +56,15 @@ defmodule PersonalPlanner.Accounts.User do
     |> validate_confirmation(:password, message: "does not match password")
     |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email)
+    |> put_password_hash()
+  end
+
+  def password_reset_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:password, :password_confirm])
+    |> validate_required([:password, :password_confirm])
+    |> validate_length(:password, min: 6)
+    |> validate_confirmation(:password, message: "does not match password")
     |> put_password_hash()
   end
 

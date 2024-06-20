@@ -1,0 +1,8 @@
+<div class="mx-auto max-w-2xl">
+<.header>
+  Reset Password
+  <:subtitle>You can reset your password below.</:subtitle>
+</.header>
+
+<.password_reset_form changeset={@changeset} action={~p"/password_resets/#{@conn.params["id"]}"} />
+</div>

@@ -36,7 +36,7 @@ defmodule PersonalPlanner.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
-
+  def get_user_by!(args), do: Repo.get_by(User, args)
   @doc """
   Creates a user.
 
@@ -128,5 +128,15 @@ defmodule PersonalPlanner.Accounts do
 
   def activate_user(%User{activated: true}) do
     {:error, :already_activated}
+  end
+
+  def password_change_user(%User{} = user) do
+    User.password_reset_changeset(user, %{})
+  end
+
+  def password_change_user(%User{} = user, attrs) do
+    user
+    |> User.password_reset_changeset(attrs)
+    |> Repo.update
   end
 end

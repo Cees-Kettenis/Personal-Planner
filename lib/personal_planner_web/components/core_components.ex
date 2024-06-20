@@ -121,12 +121,12 @@ defmodule PersonalPlannerWeb.CoreComponents do
       ]}
       {@rest}
     >
-      <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
+      <p :if={@title} class="flex items-center gap-1.5  font-semibold leading-6">
         <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
         <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" />
         <%= @title %>
       </p>
-      <p class="mt-2 text-sm leading-5"><%= msg %></p>
+      <p class="mt-2  leading-5"><%= msg %></p>
       <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
         <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
       </button>
@@ -191,6 +191,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
   """
   attr :for, :any, required: true, doc: "the datastructure for the form"
   attr :as, :any, default: nil, doc: "the server side parameter to collect all input under"
+  attr :current_user_admin, :any, default: false
 
   attr :rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target multipart),
@@ -232,7 +233,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
       type={@type}
       class={[
         "phx-submit-loading:opacity-75 rounded-lg py-2 px-3",
-        "text-sm font-semibold leading-6 border border-f0f0f0 rounded hover:bg-amber-600 focus:bg-amber-600",
+        " font-semibold leading-6 border border-f0f0f0 rounded hover:bg-amber-600 focus:bg-amber-600",
         @class
       ]}
       {@rest}
@@ -310,7 +311,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
 
     ~H"""
     <div phx-feedback-for={@name}>
-      <label class="flex items-center gap-4 text-sm leading-6 ">
+      <label class="flex items-center gap-4  leading-6 ">
         <input type="hidden" name={@name} value="false" />
         <input
           type="checkbox"
@@ -335,7 +336,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="mt-2 block w-full rounded-md border border-amber-600  shadow-sm sm:text-sm"
+        class="mt-2 block w-full rounded-md border border-amber-600  shadow-sm sm:"
         multiple={@multiple}
         {@rest}
       >
@@ -355,7 +356,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
         id={@id}
         name={@name}
         class={[
-          "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm:text-sm sm:leading-6",
+          "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm: sm:leading-6",
           "min-h-[6rem] phx-no-feedback:border-008B8B phx-no-feedback:focus:border-amber-600",
           @errors == [] && "border-008B8B focus:border-amber-600",
           @errors != [] && "border-rose-400 focus:border-rose-400"
@@ -378,7 +379,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm:text-sm sm:leading-6 border-2",
+          "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm: sm:leading-6 border-2",
           "phx-no-feedback:border-008B8B phx-no-feedback:focus:border-amber-600",
           @errors == [] && "border-008B8B focus:border-amber-600",
           @errors != [] && "border-rose-400 focus:border-rose-400"
@@ -398,7 +399,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6">
+    <label for={@for} class="block  font-semibold leading-6">
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -411,7 +412,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 phx-no-feedback:hidden">
+    <p class="mt-3 flex gap-3  leading-6 text-rose-600 phx-no-feedback:hidden">
       <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
       <%= render_slot(@inner_block) %>
     </p>
@@ -434,7 +435,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
         <h1 class="text-lg font-semibold leading-8 ">
           <%= render_slot(@inner_block) %>
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 ">
+        <p :if={@subtitle != []} class="mt-2  leading-6 ">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
@@ -477,7 +478,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
     ~H"""
     <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
       <table class="w-[40rem] mt-11 sm:w-full">
-        <thead class="text-sm text-left leading-6 ">
+        <thead class=" text-left leading-6 ">
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
             <th :if={@action != []} class="relative p-0 pb-4">
@@ -488,7 +489,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6"
+          class="relative divide-y divide-zinc-100 border-t border-zinc-200  leading-6"
         >
           <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group">
             <td
@@ -504,7 +505,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
               </div>
             </td>
             <td :if={@action != []} class="relative w-14 p-0">
-              <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
+              <div class="relative whitespace-nowrap py-4 text-right  font-medium">
                 <span class="absolute -inset-y-px -right-4 left-0 sm:rounded-r-xl" />
                 <span
                   :for={action <- @action}
@@ -539,7 +540,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
     ~H"""
     <div class="mt-14">
       <dl class="-my-4 divide-y divide-zinc-100">
-        <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
+        <div :for={item <- @item} class="flex gap-4 py-4  leading-6 sm:gap-8">
           <dt class="w-1/4 flex-none"><%= item.title %></dt>
           <dd class=""><%= render_slot(item) %></dd>
         </div>
@@ -563,7 +564,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
     <div class="mt-16">
       <.link
         navigate={@navigate}
-        class="text-sm font-semibold leading-6 hover:underline hover:text-amber-600 focus:text-amber-600 focus:underline"
+        class=" font-semibold leading-6 hover:underline hover:text-amber-600 focus:text-amber-600 focus:underline"
       >
         <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
         <%= render_slot(@inner_block) %>
