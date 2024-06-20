@@ -34,7 +34,7 @@ if config_env() == :prod do
 
 
   config :personal_planner, PersonalPlanner.Repo,
-    ssl: false,
+    ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
@@ -57,7 +57,7 @@ if config_env() == :prod do
   config :personal_planner, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :personal_planner, PersonalPlannerWeb.Endpoint,
-    url: [host: host, port: 80, scheme: "https"],
+    url: [host: host, port: 443, scheme: "https"],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
