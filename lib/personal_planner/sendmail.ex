@@ -5,7 +5,7 @@ defmodule PersonalPlanner.SendEmail do
     url = PersonalPlannerWeb.Endpoint.url() <> "/account_activations/#{activation_token}/edit"
     logo_url = PersonalPlannerWeb.Endpoint.url() <> "/images/logo.svg"
     new()
-    |> from({"noreply", "cees9000@gmail.com"})
+    |> from({"noreply", "cees9000@gmail.com"}) #this must be the email you signed up with with mailer
     |> to({user.name, user.email})
     |> subject("Account Activation")
     |> html_body(
