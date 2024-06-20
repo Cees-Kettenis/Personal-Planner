@@ -10,6 +10,26 @@ defmodule PersonalPlanner.SendEmail do
     |> subject("Account Activation")
     |> html_body(
       "<html>
+      <head>
+      <style>
+        body {
+          display:flex;
+          justify-content:center;
+          text-align:center;
+          background:#353535;
+          color:#f0f0f0;
+          flex-wrap: wrap;
+        }
+        span, h1 {
+          width:100%;
+          margin:bottom:1em;
+        }
+        img{
+          width:200px;
+          height:auto;
+        }
+      </style>
+      </head>
         <body style=\"display:flex; justify-content:center; text-align:center; background:#353535; color:#f0f0f0 !important; flex-wrap:wrap;\">
           <span style=\"width: 100%;\"> <img src=\"#{logo_url}\" style=\" width:200px; height:auto\" /> </span>
           <h1 style=\"width:100%; margin-bottom:1em;\">Hello #{user.name},</h1>
