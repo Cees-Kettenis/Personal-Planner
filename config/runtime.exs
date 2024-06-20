@@ -110,7 +110,7 @@ if config_env() == :prod do
       config :personal_planner, PersonalPlanner.Mailer,
         adapter: Swoosh.Adapters.Mailjet,
         api_key: System.get_env("MAILJET_API_KEY"),
-        domain: System.get_env("MAILJET_SECRET_KEY")
+        secret: System.get_env("MAILJET_SECRET_KEY")
 
         config :swoosh, :api_client, Swoosh.ApiClient.Finch
   #
