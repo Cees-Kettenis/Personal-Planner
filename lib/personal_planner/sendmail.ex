@@ -9,34 +9,56 @@ defmodule PersonalPlanner.SendEmail do
     |> to({user.name, user.email})
     |> subject("Account Activation")
     |> html_body(
-      "<html>
-      <head>
-      <style>
-        body {
-          display:flex;
-          justify-content:center;
-          text-align:center;
-          background:#353535;
-          color:#f0f0f0;
-          flex-wrap: wrap;
-        }
-        span, h1 {
-          width:100%;
-          margin:bottom:1em;
-        }
-        img{
-          width:200px;
-          height:auto;
-        }
-      </style>
-      </head>
-        <body style=\"display:flex; justify-content:center; text-align:center; background:#353535; color:#f0f0f0 !important; flex-wrap:wrap;\">
-          <span style=\"width: 100%;\"> <img src=\"#{logo_url}\" style=\" width:200px; height:auto\" /> </span>
-          <h1 style=\"width:100%; margin-bottom:1em;\">Hello #{user.name},</h1>
-          <span style=\"width:100%; margin-bottom:1em;\">Welcome to plancraft!</span>
-          <span style=\"width:100%; margin-bottom:1em;\">Your account activation link is: <a href=\"#{url}\" target=\"blank\" style=\" padding:0.25em; border: 1px solid #f0f0f0 \">link</a></span>
-          <span style=\"width:100%; margin-bottom:1em;\">The link is valid for 1 day. Please activate your account before the time is up.</span>
-        </body>
-      </html>")
+                  "<html>
+                    <head>
+                      <style>
+                        body {
+                          margin: 0;
+                          padding: 0;
+                          background: #353535;
+                          color: #f0f0f0;
+                          font-family: Arial, sans-serif;
+                          text-align: center;
+                        }
+                        .container {
+                          width: 100%;
+                          max-width: 600px;
+                          margin: 0 auto;
+                          padding: 20px;
+                        }
+                        .logo {
+                          width: 200px;
+                          height: auto;
+                          display: block;
+                          margin: 0 auto;
+                        }
+                        .header, .content, .footer {
+                          width: 100%;
+                          margin-bottom: 1em;
+                        }
+                        .link {
+                          padding: 0.25em;
+                          border: 1px solid #f0f0f0;
+                          color: #f0f0f0;
+                          text-decoration: none;
+                        }
+                        .link:hover {
+                          background: #f0f0f0;
+                          color: #353535;
+                        }
+                      </style>
+                    </head>
+                    <body>
+                      <div class=\"container\">
+                        <img src=\"#{logo_url}\" alt=\"Logo\" class=\"logo\" />
+                        <h1 class=\"header\">Hello #{user.name},</h1>
+                        <p class=\"content\">Welcome to plancraft!</p>
+                        <p class=\"content\">Your account activation link is:
+                          <a href=\"#{url}\" target=\"_blank\" class=\"link\">link</a>
+                        </p>
+                        <p class=\"footer\">The link is valid for 1 day. Please activate your account before the time is up.</p>
+                      </div>
+                    </body>
+                  </html>")
   end
 end
