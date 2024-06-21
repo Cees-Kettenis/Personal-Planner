@@ -26,6 +26,8 @@ defmodule PersonalPlannerWeb.Router do
     resources "/users", UserController
     resources "/account_activations", AccountActivationController
     resources "/password_resets", PasswordResetController, only: [:new, :create, :edit, :update]
+    resources "/tasks", TaskController
+
   end
 
   # Other scopes may use custom stacks.

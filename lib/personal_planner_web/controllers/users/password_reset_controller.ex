@@ -3,7 +3,6 @@ defmodule PersonalPlannerWeb.PasswordResetController do
 
   alias PersonalPlanner.Accounts
   alias PersonalPlanner.Accounts.User
-  alias PersonalPlannerWeb.AuthPlug
 
   plug :valid_user when action in [:edit, :update]
 
@@ -35,11 +34,9 @@ defmodule PersonalPlannerWeb.PasswordResetController do
     render(conn, :edit, page_title: "Reset Password", changeset: changeset)
   end
 
-  def update(conn,   %{"id" => id, "user" => user_params}) do
+  def update(conn,   %{"id" => _id, "user" => user_params}) do
     user = conn.assigns.user
-    IO.inspect(user.password_hash)
-    newhash = Argon2.hash_pwd_salt(user_params["password"])
-    IO.inspect(newhash)
+
     case PersonalPlanner.Accounts.password_change_user(user, user_params) do
       {:ok, user} ->
         conn
