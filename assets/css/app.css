@@ -73,7 +73,7 @@ body{
     padding-bottom: 0.25em;
 }
 #tasks td:nth-child(5), #tasks th:nth-child(5){
-    width:3%;
+    width:10%;
     text-align: center;
 }
 #tasks td:nth-child(6){

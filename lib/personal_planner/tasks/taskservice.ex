@@ -69,7 +69,7 @@ def get_by!(args), do: Repo.get_by(Task, args)
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_user(%Task{} = task, attrs) do
+  def update_task(%Task{} = task, attrs) do
     task
     |> Task.changeset(attrs)
     |> Repo.update()

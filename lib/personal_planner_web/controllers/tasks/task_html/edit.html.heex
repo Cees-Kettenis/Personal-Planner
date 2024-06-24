@@ -1,0 +1,10 @@
+<div class="mx-auto width50">
+<.header>
+  Update Task
+  <:subtitle>Use this detailed form to fill in more information for the task.</:subtitle>
+</.header>
+
+<.task_form changeset={@changeset} action={~p"/tasks/#{@task}"} current_user_admin={@current_user.admin}/>
+
+<.back navigate={~p"/tasks"}>Back to tasks</.back>
+</div>

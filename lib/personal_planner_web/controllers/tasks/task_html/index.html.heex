@@ -9,7 +9,7 @@
    </:actions> 
 </.header>
 
-<.table id="tasks" rows={@task} row_click={&JS.navigate(~p"/tasks/#{&1}")}>
+<.table id="tasks" rows={@task} row_click={&JS.navigate(~p"/tasks/#{&1}/edit")}>
     <:col :let={task} label="Number">
         <div class="flex gap-2">
         <%= if task.task_type == 0 do %>

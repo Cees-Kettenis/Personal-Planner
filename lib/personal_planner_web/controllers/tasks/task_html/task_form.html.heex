@@ -16,7 +16,7 @@
       <.input field={f[:description]} type="textarea" label="Description" />
     </div>
      <div class="width24">
-      <.input field={f[:sequence]} type="select" label="Prioity"  options={[{"Medium", 0}, {"High", -100}, {"Low", 100}]} />
+      <.input field={f[:sequence]} type="select" label="Prioity" value="0" options={[{"High", -100}, {"Medium", 0}, {"Low", 100}]} />
     </div>
     <div class="width24">
       <.input field={f[:due_date]} type="date" label="Due date" />

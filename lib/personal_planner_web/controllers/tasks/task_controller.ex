@@ -4,9 +4,8 @@ defmodule PersonalPlannerWeb.TaskController do
   alias PersonalPlanner.Task
   alias PersonalPlanner.TaskService
 
-  plug :logged_in_user when action in [:index, :show]
+  plug :logged_in_user when action in [:index, :show, :edit, :update]
   plug :is_user_admin when action in [:new, :delete]
-  plug :is_user_updating_themselves_or_admin when action in [:edit, :update]
 
   def index(conn, params) do
     with {:ok, {tasks, meta}} <- TaskService.list_tasks(params) do
@@ -37,39 +36,36 @@ defmodule PersonalPlannerWeb.TaskController do
     end
   end
 
-  # def show(conn, %{"id" => id}) do
-  #   user = Accounts.get_user!(id)
-  #   render(conn, :show, user: user, page_title: "View user | " <> user.name)
-  # end
+  def edit(conn, %{"id" => id}) do
+    task = TaskService.get!(id)
+    changeset = TaskService.change_task(task)
+    render(conn, :edit, task: task, changeset: changeset, page_title: "Update Task | "  <> task.number)
+  end
 
-  # def edit(conn, %{"id" => id}) do
-  #   user = Accounts.get_user!(id)
-  #   changeset = Accounts.change_user(user)
-  #   render(conn, :edit, user: user, changeset: changeset, page_title: "Update User | "  <> user.name)
-  # end
+  def update(conn, %{"id" => id, "task" => task_params}) do
+    task = TaskService.get!(id)
+    corrected_date = task_params["due_date"] <> " 00:00"
+    task_params = Map.put(task_params, "due_date", corrected_date)
 
-  # def update(conn, %{"id" => id, "user" => user_params}) do
-  #   user = Accounts.get_user!(id)
+    case TaskService.update_task(task, task_params) do
+      {:ok, task} ->
+        conn
+        |> put_flash(:info, "User updated successfully.")
+        |> redirect(to: ~p"/tasks")
 
-  #   case Accounts.update_user(user, user_params) do
-  #     {:ok, user} ->
-  #       conn
-  #       |> put_flash(:info, "User updated successfully.")
-  #       |> redirect(to: ~p"/users/#{user}")
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :edit,  task: task, changeset: changeset)
+    end
+  end
 
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, :edit, user: user, changeset: changeset)
-  #   end
-  # end
+  def delete(conn, %{"id" => id}) do
+    task = TaskService.get!(id)
+    {:ok, _task} = TaskService.delete_task(task)
 
-  # def delete(conn, %{"id" => id}) do
-  #   user = Accounts.get_user!(id)
-  #   {:ok, _user} = Accounts.delete_user(user)
-
-  #   conn
-  #   |> put_flash(:info, "User deleted successfully.")
-  #   |> redirect(to: ~p"/users")
-  # end
+    conn
+    |> put_flash(:info, "Task deleted successfully.")
+    |> redirect(to: ~p"/tasks")
+  end
 
   # def signup(conn, _params) do
   #   changeset = Accounts.change_user(%User{})
