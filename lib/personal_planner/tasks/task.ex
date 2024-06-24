@@ -42,8 +42,7 @@ defmodule PersonalPlanner.Task do
   end
 
   def changeset(task, attrs) do
-    fields = schema_fields()
     task
-    |> cast(attrs, fields)
+    |> cast(attrs, schema_fields())
   end
 end

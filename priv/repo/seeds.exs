@@ -11,6 +11,7 @@
 # and so on) as they will fail if something goes wrong.
 
 alias PersonalPlanner.Accounts.User
+alias PersonalPlanner.Task
 
 passwordhash = Argon2.hash_pwd_salt("foobar")
 date = DateTime.utc_now() |> DateTime.truncate(:second)
@@ -26,34 +27,39 @@ additional_user = %User{
   activated_at: date
 }
 
- PersonalPlanner.Repo.insert(additional_user)
+PersonalPlanner.Repo.insert(additional_user)
 
-# additional_user_2 = %User{
-#   name: "Cees Kettenis",
-#   email: "ckettenis@neptrix.com",
-#   password_hash: Argon2.hash_pwd_salt("specialpassword"),
-#   inserted_at: date,
-#   updated_at: date,
-#   admin: false,
-#   activated: true,
-#   activated_at: date
-# }
+# users = for n <- 1..20 do
+#   IO.inspect(n)
+#   name = Faker.Pokemon.En.name()
+#   date2 = date |> Timex.shift(minutes: n) |> DateTime.truncate(:second)
+#   %{
+#     name: name,
+#     email: "#{name}-#{n}@example.com",
+#     password_hash:  passwordhash,
+#     inserted_at: date2,
+#     updated_at: date2,
+#     activated: true,
+#     activated_at: date2
+#   }
+# end
 
-# PersonalPlanner.Repo.insert(additional_user_2)
+# PersonalPlanner.Repo.insert_all(User, users)
 
-users = for n <- 1..20 do
-  IO.inspect(n)
-  name = Faker.Pokemon.En.name()
-  date2 = date |> Timex.shift(minutes: n) |> DateTime.truncate(:second)
-  %{
-    name: name,
-    email: "#{name}-#{n}@example.com",
-    password_hash:  passwordhash,
-    inserted_at: date2,
-    updated_at: date2,
-    activated: true,
-    activated_at: date2
-  }
-end
+# user = PersonalPlanner.Accounts.get_user!(1)
+# tasks = for n <- 1..20 do
+#   IO.inspect(n)
+#   %{
+#     number: Integer.to_string(:rand.uniform(1000 - 1 + 1)),
+#     title: Faker.Lorem.Shakespeare.En.as_you_like_it(),
+#     description: Faker.Lorem.paragraph(1..2),
+#     sequence: n,
+#     task_type: rem(n, 2),
+#     due_date: date,
+#     creator_id: user.id,
+#     inserted_at: date,
+#     updated_at: date,
+#   }
+# end
 
-PersonalPlanner.Repo.insert_all(User, users)
+# PersonalPlanner.Repo.insert_all(Task, tasks)

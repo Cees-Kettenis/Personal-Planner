@@ -8,6 +8,7 @@
     <div class="flex items-center gap-4 font-semibold leading-6">
       <.link href={~p"/"} class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline">Home</.link>
       <%= if @current_user do %>
+        <.link href={~p"/tasks"} class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline" >Tasks</.link>
         <.link href={~p"/users"} class="hover:text-amber-600 focus:text-amber-600 hover:underline focus:underline" >Users</.link>
         <div class="border-r-2 border-f0f0f0" style="height:28px"></div>
 

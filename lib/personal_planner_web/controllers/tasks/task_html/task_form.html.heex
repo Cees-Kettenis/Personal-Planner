@@ -1,0 +1,35 @@
+<.simple_form :let={f} for={@changeset} action={@action} current_user_admin={@current_user_admin}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <div class="flex w-100 gap-2 flex-wrap">
+    <div class="width24">
+          <.input field={f[:number]} type="text" label="Number" />
+    </div>
+    <div class="width14">
+          <.input field={f[:task_type]} type="select" label="type" options={[ {"Task", 0}, {"Bug", 1}]} />
+    </div>
+    <div class="width59">  
+      <.input field={f[:title]} type="text" label="Title" />
+    </div>
+    <div class="width100">
+      <.input field={f[:description]} type="textarea" label="Description" />
+    </div>
+     <div class="width24">
+      <.input field={f[:sequence]} type="select" label="Prioity"  options={[{"Medium", 0}, {"High", -100}, {"Low", 100}]} />
+    </div>
+    <div class="width24">
+      <.input field={f[:due_date]} type="date" label="Due date" />
+    </div>
+    <%!-- TO DO
+        1. add assigned too dropdown
+        2. add start, end buttons.
+        3. add assign to current week
+        4. add "create child" function
+     --%>
+  </div>
+
+  <:actions>
+    <.button>Save</.button>
+  </:actions>
+</.simple_form>
