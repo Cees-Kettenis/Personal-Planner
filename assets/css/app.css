@@ -8,17 +8,80 @@ body{
     color:#f0f0f0 !important;
 }
 
-/* Flop table styling */
-#user-table{
+/* user table styling */
+#user-table, #user-table-tbody{
+    text-align: left;
     width:100%;
 }
 #user-table th{
     text-align: left;
+    border-bottom:1px solid rgb(229, 231, 235);
+    font-weight: normal;
 }
-#user-table tbody td:last-child{
-    display:flex;
-    justify-content: space-evenly;
+#user-table td{
+    border-bottom:1px solid rgb(229, 231, 235);
+    padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
+
+#user-table td:nth-child(1){
+    width:25%;
+}
+#user-table td:nth-child(2){
+    width:25%;
+}
+#user-table td:nth-child(3){
+    width:7%;
+}
+#user-table td:nth-child(4){
+    width:5%;
+}
+#user-table td:nth-child(5){
+    width:1%;
+}
+#user-table tr:last-child td{
+    border-bottom:none;
+}
+
+/* tasks table styling */
+#tasks td:nth-child(1){
+    width:5%;
+}
+#tasks td:nth-child(2){
+    width:20%;
+}
+#tasks td:nth-child(3){
+    width:3%;
+}
+#tasks td:nth-child(4), #tasks th:nth-child(4){
+    width:3%;
+    text-align: center;
+}
+#tasks td:nth-child(4) div.status-pending{
+    background-color: #1e40af;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
+#tasks td:nth-child(4) div.status-started{
+    background-color: #a16207;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
+#tasks td:nth-child(4) div.status-completed{
+    background-color: #15803d;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
+#tasks td:nth-child(5), #tasks th:nth-child(5){
+    width:3%;
+    text-align: center;
+}
+#tasks td:nth-child(6){
+    width:1%;
+}
+
+
+/* Flop pagination styling */
 .pagination{
     display: flex;
     align-items: center;
