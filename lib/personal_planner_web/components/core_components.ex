@@ -336,7 +336,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="mt-2 block w-full rounded-md border border-amber-600  shadow-sm sm:"
+        class="mt-2  w-full border-2 border-008B8B text-neutral-50 bg-neutral-800 rounded-md border focus:border-amber-600"
         multiple={@multiple}
         {@rest}
       >
@@ -356,7 +356,7 @@ defmodule PersonalPlannerWeb.CoreComponents do
         id={@id}
         name={@name}
         class={[
-          "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm: sm:leading-6",
+          "mt-2 block w-full rounded-lg border-2 text-neutral-50 bg-neutral-800 focus:ring-0 sm: sm:leading-6",
           "min-h-[6rem] phx-no-feedback:border-008B8B phx-no-feedback:focus:border-amber-600",
           @errors == [] && "border-008B8B focus:border-amber-600",
           @errors != [] && "border-rose-400 focus:border-rose-400"
@@ -477,27 +477,27 @@ defmodule PersonalPlannerWeb.CoreComponents do
 
     ~H"""
     <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-      <table class="w-[40rem] mt-11 sm:w-full">
+      <table
+        id={@id}
+        phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
+        class="w-[40rem] mt-11 sm:w-full"
+        >
         <thead class=" text-left leading-6 ">
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
-            <th :if={@action != []} class="relative p-0 pb-4">
+            <th :for={col <- @col} class="p-0 pb-1 font-normal"><%= col[:label] %></th>
+            <th :if={@action != []} class="relative p-0 pb-1">
               <span class="sr-only"><%= gettext("Actions") %></span>
             </th>
           </tr>
         </thead>
-        <tbody
-          id={@id}
-          phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="relative divide-y divide-zinc-100 border-t border-zinc-200  leading-6"
-        >
+        <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200  leading-6">
           <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group">
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
               class={["relative p-0", @row_click && "hover:cursor-pointer"]}
             >
-              <div class="block py-4 pr-6">
+              <div class="block py-1">
                 <span class="absolute -inset-y-px right-0 -left-4 sm:rounded-l-xl" />
                 <span class={["relative", i == 0 && "font-semibold"]}>
                   <%= render_slot(col, @row_item.(row)) %>

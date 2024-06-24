@@ -9,7 +9,9 @@ defmodule PersonalPlanner.TaskService do
   alias PersonalPlanner.Task
 
   def list_tasks(params) do
-    Flop.validate_and_run(Task, params, for: Task)
+    query = from t in Task,
+    preload: [:creator, :assigned_to]
+    Flop.validate_and_run(query, params, for: Task)
   end
 
     @doc """

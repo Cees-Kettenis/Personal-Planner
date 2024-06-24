@@ -10,7 +10,7 @@ defmodule PersonalPlannerWeb.TaskController do
 
   def index(conn, params) do
     with {:ok, {tasks, meta}} <- TaskService.list_tasks(params) do
-      render(conn, :index, meta: meta, tasks: tasks, page_title: "Task List")
+      render(conn, :index, meta: meta, task: tasks, page_title: "Task List")
     end
   end
 
@@ -19,20 +19,21 @@ defmodule PersonalPlannerWeb.TaskController do
     render(conn, :new, changeset: changeset, page_title: "Create Task")
   end
 
-  # def create(conn, %{"user" => user_params}) do
-  #   case Accounts.create_user(user_params) do
-  #     {:ok, user} ->
-  #       activation_token = PersonalPlanner.Token.gen_activation_token(user)
-  #       PersonalPlanner.SendEmail.account_activation_email(user, activation_token) |> PersonalPlanner.Mailer.deliver()
+  def create(conn, %{"task" => task_params}) do
+    task_params = Map.put(task_params, "creator_id", conn.assigns.current_user.id)
+    corrected_date = task_params["due_date"] <> " 00:00"
+    task_params = Map.put(task_params, "due_date", corrected_date)
+    IO.inspect(task_params)
+    case TaskService.create_task(task_params) do
+      {:ok, _task} ->
+        conn
+        |> put_flash(:info, "Task created successfully.")
+        |> redirect(to: ~p"/tasks")
 
-  #       conn
-  #       |> put_flash(:info, "User created successfully.")
-  #       |> redirect(to: ~p"/login")
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, :new, changeset: changeset)
-  #   end
-  # end
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :new, changeset: changeset)
+    end
+  end
 
   # def show(conn, %{"id" => id}) do
   #   user = Accounts.get_user!(id)
