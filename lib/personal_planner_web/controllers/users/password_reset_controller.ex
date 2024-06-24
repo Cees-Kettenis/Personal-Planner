@@ -42,7 +42,7 @@ defmodule PersonalPlannerWeb.PasswordResetController do
         conn
         |> PersonalPlannerWeb.AuthPlug.login(user, false)
         |> put_flash(:info, "Password has been reset")
-        |> redirect(to: ~p"/users")
+        |> redirect(to: ~p"/users/#{user}/")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit, user: user, changeset: changeset, page_title: "Reset Password")
