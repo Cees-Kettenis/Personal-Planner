@@ -20,10 +20,12 @@ defmodule PersonalPlannerWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
+
+    #modify the user input slighly to morph it into the database schema better.
     task_params = Map.put(task_params, "creator_id", conn.assigns.current_user.id)
     corrected_date = task_params["due_date"] <> " 00:00"
     task_params = Map.put(task_params, "due_date", corrected_date)
-    IO.inspect(task_params)
+
     case TaskService.create_task(task_params) do
       {:ok, _task} ->
         conn
