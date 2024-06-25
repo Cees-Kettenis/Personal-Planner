@@ -1,7 +1,7 @@
 <.header>
   Listing of ongoing tasks 
     <:actions>
-      <%= if @current_user.admin do %>
+      <%= if @current_user do %>
         <.link href={~p"/tasks/new"}>
           <.button>New Task</.button>
         </.link>

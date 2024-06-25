@@ -21,6 +21,10 @@ defmodule PersonalPlanner.Accounts do
     Flop.validate_and_run(User, params, for: User)
   end
 
+  def list_users_dropdown do
+    Repo.all(User)
+  end
+
   @doc """
   Gets a single user.
 

@@ -3,9 +3,9 @@ defmodule PersonalPlannerWeb.TaskController do
 
   alias PersonalPlanner.Task
   alias PersonalPlanner.TaskService
+  alias PersonalPlanner.Accounts
 
-  plug :logged_in_user when action in [:index, :show, :edit, :update]
-  plug :is_user_admin when action in [:new, :delete]
+  plug :logged_in_user when action in [:index, :new, :edit, :update, :delete]
 
   def index(conn, params) do
     with {:ok, {tasks, meta}} <- TaskService.list_tasks(params) do
@@ -14,16 +14,15 @@ defmodule PersonalPlannerWeb.TaskController do
   end
 
   def new(conn, _params) do
+    users = fetch_users_for_dropdown()
     changeset = TaskService.change_task(%Task{})
-    render(conn, :new, changeset: changeset, page_title: "Create Task")
+    render(conn, :new, changeset: changeset, page_title: "Create Task", users: users)
   end
 
   def create(conn, %{"task" => task_params}) do
 
     #modify the user input slighly to morph it into the database schema better.
     task_params = Map.put(task_params, "creator_id", conn.assigns.current_user.id)
-    corrected_date = task_params["due_date"] <> " 00:00"
-    task_params = Map.put(task_params, "due_date", corrected_date)
 
     case TaskService.create_task(task_params) do
       {:ok, _task} ->
@@ -32,20 +31,21 @@ defmodule PersonalPlannerWeb.TaskController do
         |> redirect(to: ~p"/tasks")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+        users = fetch_users_for_dropdown()
+        render(conn, :new, changeset: changeset, page_title: "Create Task", users: users)
     end
   end
 
   def edit(conn, %{"id" => id}) do
+    users = fetch_users_for_dropdown()
+
     task = TaskService.get!(id)
     changeset = TaskService.change_task(task)
-    render(conn, :edit, task: task, changeset: changeset, page_title: "Update Task | "  <> task.number)
+    render(conn, :edit, task: task, changeset: changeset, page_title: "Update Task | "  <> task.number, users: users)
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = TaskService.get!(id)
-    corrected_date = task_params["due_date"] <> " 00:00"
-    task_params = Map.put(task_params, "due_date", corrected_date)
 
     case TaskService.update_task(task, task_params) do
       {:ok, task} ->
@@ -54,7 +54,8 @@ defmodule PersonalPlannerWeb.TaskController do
         |> redirect(to: ~p"/tasks")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit,  task: task, changeset: changeset)
+        users = fetch_users_for_dropdown()
+        render(conn, :edit,  task: task, changeset: changeset, page_title: "Update Task | "  <> task.number, users: users)
     end
   end
 
@@ -65,5 +66,10 @@ defmodule PersonalPlannerWeb.TaskController do
     conn
     |> put_flash(:info, "Task deleted successfully.")
     |> redirect(to: ~p"/tasks")
+  end
+
+  defp fetch_users_for_dropdown do
+    users = Accounts.list_users_dropdown()
+    [{"N/A", nil} | Enum.map(users, fn user -> {user.name, user.id} end)]
   end
 end

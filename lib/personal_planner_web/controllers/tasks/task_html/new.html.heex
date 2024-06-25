@@ -4,7 +4,7 @@
   <:subtitle>Use this detailed form to fill in more information for the task.</:subtitle>
 </.header>
 
-<.task_form changeset={@changeset} action={~p"/tasks"} current_user_admin={@current_user.admin}/>
+<.task_form changeset={@changeset} action={~p"/tasks"} current_user_admin={@current_user.admin} users={@users}/>
 
 <.back navigate={~p"/tasks"}>Back to tasks</.back>
 </div>

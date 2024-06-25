@@ -21,7 +21,7 @@ defmodule PersonalPlanner.Task do
     field :description, :string
     field :sequence, :integer # a number that orders the list of tasks to do in any listing page.
     field :task_type, :integer #0 is task, 1 is bug. in the future we can expand this. enum maybe?
-    field :due_date, :utc_datetime
+    field :due_date, :date
     belongs_to :creator, User
 
 
@@ -44,5 +44,6 @@ defmodule PersonalPlanner.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, schema_fields())
+    |> validate_required([:number, :title, :description, :sequence, :task_type, :due_date])
   end
 end

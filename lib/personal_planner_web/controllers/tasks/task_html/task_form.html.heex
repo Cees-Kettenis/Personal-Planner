@@ -12,21 +12,18 @@
     <div class="width59">  
       <.input field={f[:title]} type="text" label="Title" />
     </div>
-    <div class="width100">
+    <div class="width99">
       <.input field={f[:description]} type="textarea" label="Description" />
     </div>
-     <div class="width24">
-      <.input field={f[:sequence]} type="select" label="Prioity" value="0" options={[{"High", -100}, {"Medium", 0}, {"Low", 100}]} />
+     <div class="width25">
+      <.input field={f[:sequence]} type="select" label="Prioity" value="0" options={[{"High", -100}, {"Medium-high", -50},  {"Medium", 0}, {"Medium-low", 50}, {"Low", 100}]} />
     </div>
-    <div class="width24">
+    <div class="width32">
       <.input field={f[:due_date]} type="date" label="Due date" />
     </div>
-    <%!-- TO DO
-        1. add assigned too dropdown
-        2. add start, end buttons.
-        3. add assign to current week
-        4. add "create child" function
-     --%>
+    <div class="width40">
+      <.input field={f[:assigned_to_id]} type="select" label="Assign To" options={@users} />
+    </div>
   </div>
 
   <:actions>
