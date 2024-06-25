@@ -367,6 +367,30 @@ defmodule PersonalPlannerWeb.CoreComponents do
     </div>
     """
   end
+  #PersonalPlannerWebUtils.formatDate(@value, "{YYYY}/{0M}/{0D}")
+
+  def input(%{type: "date"} = assigns) do
+    ~H"""
+    <div phx-feedback-for={@name}>
+      <.label for={@id}><%= @label %></.label>
+      <input
+        type={@type}
+        name={@name}
+        id={@id}
+        value={Phoenix.HTML.Form.normalize_value(@type, Date.to_iso8601(@value))}
+        class={[
+          "mt-2 block w-full rounded-lg text-neutral-50 bg-neutral-800 focus:ring-0 sm: sm:leading-6 border-2",
+          "phx-no-feedback:border-008B8B phx-no-feedback:focus:border-amber-600",
+          @errors == [] && "border-008B8B focus:border-amber-600",
+          @errors != [] && "border-rose-400 focus:border-rose-400"
+        ]}
+        {@rest}
+      />
+      <.error :for={msg <- @errors}><%= msg %></.error>
+    </div>
+    """
+  end
+
 
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do

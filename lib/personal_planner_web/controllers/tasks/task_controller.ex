@@ -50,7 +50,7 @@ defmodule PersonalPlannerWeb.TaskController do
     case TaskService.update_task(task, task_params) do
       {:ok, task} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, "Task " <> task.number <> " updated successfully.")
         |> redirect(to: ~p"/tasks")
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -66,9 +66,4 @@ defmodule PersonalPlannerWeb.TaskController do
     |> put_flash(:info, "Task deleted successfully.")
     |> redirect(to: ~p"/tasks")
   end
-
-  # def signup(conn, _params) do
-  #   changeset = Accounts.change_user(%User{})
-  #   render(conn, :signup, changeset: changeset, page_title: "Sign up")
-  # end
 end
