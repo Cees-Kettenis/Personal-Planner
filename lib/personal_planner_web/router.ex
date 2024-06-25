@@ -27,6 +27,9 @@ defmodule PersonalPlannerWeb.Router do
     resources "/account_activations", AccountActivationController
     resources "/password_resets", PasswordResetController, only: [:new, :create, :edit, :update]
     resources "/tasks", TaskController
+    post "/tasks/:id/start", TaskController, :start
+    post "/tasks/:id/complete", TaskController, :complete
+
 
   end
 

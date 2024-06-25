@@ -39,6 +39,15 @@
     <:col :let={task} label="Assigned to"><div class="flex justify-center"><img class="h-11 w-11 rounded-full" src={gravatar_for(task.assigned_to)} /></div></:col>
 
     <:action :let={task}>
+        <%= case date_status(task.started_at, task.completed_at) do %>
+        <%  "Pending" -> %>
+            <.link href={~p"/tasks/#{task}/start"} method="post" class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600on">Start</.link>
+        <% "In Progress" -> %>
+            <.link href={~p"/tasks/#{task}/complete"} method="post" class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600on">Complete</.link>
+        <%  _ -> %>
+
+        <% end %>
+
         <.link navigate={~p"/tasks/#{task}/edit"}  class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600on">Edit</.link>
         <.link href={~p"/tasks/#{task}"} method="delete" data-confirm="Are you sure?" class="border px-2 py-1 rounded bg-red-600 hover:bg-red-900 focus:bg-red-900">Delete</.link>  
     </:action>

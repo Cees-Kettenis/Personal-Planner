@@ -68,6 +68,42 @@ defmodule PersonalPlannerWeb.TaskController do
     |> redirect(to: ~p"/tasks")
   end
 
+  def start(conn, %{"id" => id}) do
+    task = TaskService.get!(id)
+    task_params = %{
+      started_at: DateTime.utc_now()
+    }
+    case TaskService.update_task(task, task_params) do
+      {:ok, task} ->
+        conn
+        |> put_flash(:info, "Task " <> task.number <> " started.")
+        |> redirect(to: ~p"/tasks")
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Task " <> task.number <> " cannot start.")
+        |> redirect(to: ~p"/tasks")
+    end
+  end
+
+  def complete(conn, %{"id" => id}) do
+    task = TaskService.get!(id)
+    task_params = %{
+      completed_at: DateTime.utc_now()
+    }
+    case TaskService.update_task(task, task_params) do
+      {:ok, task} ->
+        conn
+        |> put_flash(:info, "Task " <> task.number <> " completed.")
+        |> redirect(to: ~p"/tasks")
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Task " <> task.number <> " cannot be completed.")
+        |> redirect(to: ~p"/tasks")
+    end
+  end
+
   defp fetch_users_for_dropdown do
     users = Accounts.list_users_dropdown()
     [{"N/A", nil} | Enum.map(users, fn user -> {user.name, user.id} end)]

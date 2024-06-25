@@ -9,8 +9,10 @@ defmodule PersonalPlanner.TaskService do
   alias PersonalPlanner.Task
 
   def list_tasks(params) do
-    query = from t in Task,
-    preload: [:creator, :assigned_to]
+    query =
+      from t in Task,
+        where: is_nil(t.completed_at) or t.completed_at >= ^Timex.now(),
+        preload: [:creator, :assigned_to]
     Flop.validate_and_run(query, params, for: Task)
   end
 
