@@ -8,8 +8,8 @@
       <% end %>
    </:actions> 
 </.header>
-
-<.table id="tasks" rows={@task} row_click={&JS.navigate(~p"/tasks/#{&1}/edit")}>
+<%!-- row_click={&JS.navigate(~p"/tasks/#{&1}/edit")} --%>
+<.table id="tasks" rows={@task} >
     <:col :let={task} label="Number">
         <div class="flex gap-2">
         <%= if task.task_type == 0 do %>

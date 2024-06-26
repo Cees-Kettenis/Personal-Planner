@@ -9,29 +9,28 @@
    </:actions>
 
 </.header>
-
-<%!-- <.table id="users" rows={@users} row_click={&JS.navigate(~p"/users/#{&1}")}> --%>
 <Flop.Phoenix.pagination meta={@meta} path={~p"/users"}  opts={PersonalPlannerWeb.FlopConfig.pagination_opts()}/>
 
-<Flop.Phoenix.table items={@users} meta={@meta} path={~p"/users"}>
-  <:col :let={user} label="Name"> <div class="w-full flex items-center"> <img class="h-11 w-11 rounded-full me-2" src={gravatar_for(user)} /> <%= user.name %> </div></:col>
-  <:col :let={user} label="Email"><%= user.email %></:col>
-  <:col :let={user} label="Member Since"><%= formatDate(user.inserted_at) %></:col>
-  <:col :let={user} label="Role">
-    <%= if user.admin do "Admin" else "Member" end %>
-  </:col>
-   
-<:action :let={user}>
-<div class="flex w-100 justify-end gap-1">
-    <.link navigate={~p"/users/#{user}"} class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600">View</.link>
+<div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
+  <Flop.Phoenix.table items={@users} meta={@meta} path={~p"/users"}>
+    <:col :let={user} label="Name"> <div class="w-full flex items-center"> <img class="h-11 w-11 rounded-full me-2" src={gravatar_for(user)} /> <%= user.name %> </div></:col>
+    <:col :let={user} label="Email"><%= user.email %></:col>
+    <:col :let={user} label="Member Since"><%= formatDate(user.inserted_at) %></:col>
+    <:col :let={user} label="Role">
+      <%= if user.admin do "Admin" else "Member" end %>
+    </:col>
+    
+  <:action :let={user}>
+  <div class="flex w-100 justify-end gap-1">
+      <.link navigate={~p"/users/#{user}"} class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600">View</.link>
 
-    <%= if @current_user.admin do %>
-      <.link navigate={~p"/users/#{user}/edit"}  class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600on">Edit</.link>
-      <.link href={~p"/users/#{user}"} method="delete" data-confirm="Are you sure?" class="border px-2 py-1 rounded bg-red-600 hover:bg-red-900 focus:bg-red-900">Delete</.link>  
-    <% end %>
-      </div>
+      <%= if @current_user.admin do %>
+        <.link navigate={~p"/users/#{user}/edit"}  class="border px-2 py-1 rounded hover:bg-amber-600 focus:bg-amber-600on">Edit</.link>
+        <.link href={~p"/users/#{user}"} method="delete" data-confirm="Are you sure?" class="border px-2 py-1 rounded bg-red-600 hover:bg-red-900 focus:bg-red-900">Delete</.link>  
+      <% end %>
+        </div>
 
-  </:action>
-</Flop.Phoenix.table>
-
+    </:action>
+  </Flop.Phoenix.table>
+</div>
 <Flop.Phoenix.pagination meta={@meta} path={~p"/users"}   opts={PersonalPlannerWeb.FlopConfig.pagination_opts()} />
