@@ -6,5 +6,5 @@
 
 <.task_form changeset={@changeset} action={~p"/tasks"} current_user_admin={@current_user.admin} users={@users}/>
 
-<.back navigate={~p"/tasks"}>Back to tasks</.back>
+<.back navigate={@back_url}>Back to tasks</.back>
 </div>

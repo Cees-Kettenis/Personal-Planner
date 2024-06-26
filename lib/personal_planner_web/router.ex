@@ -29,8 +29,7 @@ defmodule PersonalPlannerWeb.Router do
     resources "/tasks", TaskController
     post "/tasks/:id/start", TaskController, :start
     post "/tasks/:id/complete", TaskController, :complete
-
-
+    get "/tasks/mytasks", TaskController, :mytasks
   end
 
   # Other scopes may use custom stacks.

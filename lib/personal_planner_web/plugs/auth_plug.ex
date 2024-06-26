@@ -67,6 +67,17 @@ defmodule PersonalPlannerWeb.AuthPlug do
     end
   end
 
+  def set_redirect_url(conn) do
+    conn = put_session(conn, :manual_forwarding_url, conn.request_path)
+  end
+
+  def manual_redirect_or(conn, default) do
+    path =  get_session(conn, :manual_forwarding_url) || default
+    conn
+    |> delete_session(:manual_forwarding_url)
+    |> redirect(to: path)
+  end
+
   def redirect_back_or(conn, default) do
     path = get_session(conn, :forwarding_url) || default
 
@@ -81,6 +92,7 @@ defmodule PersonalPlannerWeb.AuthPlug do
         put_session(conn, :forwarding_url, conn.request_path)
 
         _ ->
+          IO.inspect("not storing")
           conn
     end
   end
@@ -98,7 +110,6 @@ defmodule PersonalPlannerWeb.AuthPlug do
   end
 
   def is_user_admin(conn, _opts) do
-    IO.inspect(conn.assigns.current_user)
     if conn.assigns.current_user.admin do
       conn
     else

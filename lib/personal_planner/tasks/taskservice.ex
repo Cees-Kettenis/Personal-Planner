@@ -16,6 +16,14 @@ defmodule PersonalPlanner.TaskService do
     Flop.validate_and_run(query, params, for: Task)
   end
 
+  def my_list_tasks(params, user_id) do
+    query =
+      from t in Task,
+        where: (is_nil(t.completed_at) or t.completed_at >= ^Timex.now()) and t.assigned_to_id == ^user_id,
+        preload: [:creator, :assigned_to]
+    Flop.validate_and_run(query, params, for: Task)
+  end
+
     @doc """
      ## Examples
 
