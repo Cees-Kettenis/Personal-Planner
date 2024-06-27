@@ -9,7 +9,7 @@
   <%= if @current_user_admin do %>
     <.input field={f[:admin]} type="checkbox" label="is user admin?" />
   <% end %>
-  <.input field={f[:image_url]} type="file" label="upload your profile picture" class="hidden upload" />
+  <.input field={f[:image_url]} type="file" accept="image/*" label="upload your profile picture" class="hidden upload" />
   <:actions>
     <.button>Save</.button>
   </:actions>
