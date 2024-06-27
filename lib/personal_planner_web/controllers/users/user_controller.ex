@@ -97,24 +97,28 @@ defmodule PersonalPlannerWeb.UserController do
   end
 
   defp handle_image_upload(%{"image_url" => %Plug.Upload{} = upload} = params) do
-    file_extension = Path.extname(upload.filename)
-    new_filename = "#{Ecto.UUID.generate()}#{file_extension}"
-    save_img_path = Path.join(["priv/static/images/uploads", new_filename])
+    #this is the better method then saving to DB. however gigalixir does not allow that.
+    # file_extension = Path.extname(upload.filename)
+    # new_filename = "#{Ecto.UUID.generate()}#{file_extension}"
+    # save_img_path = Path.join(["priv/static/images/uploads", new_filename])
 
-    case StbImage.read_file(upload.path) do
-      {:ok, image} ->
-        # Resize the image to 100x100 pixels
-        resized_image = StbImage.resize(image, 150, 150)
-        case File.write(save_img_path, StbImage.to_binary(resized_image, :png)) do
-              :ok ->
-                {:ok, Map.put(params, "image_url", "/images/uploads/#{new_filename}")}
-              {:error, reason} ->
-                 {:error, reason}
-        end
+    # case StbImage.read_file(upload.path) do
+    #   {:ok, image} ->
+    #     # Resize the image to 100x100 pixels
+    #     resized_image = StbImage.resize(image, 150, 150)
+    #     case File.write(save_img_path, StbImage.to_binary(resized_image, :png)) do
+    #           :ok ->
+    #             {:ok, Map.put(params, "image_url", "/images/uploads/#{new_filename}")}
+    #           {:error, reason} ->
+    #              {:error, reason}
+    #     end
 
-      {:error, _reason} ->
-        {:error, "Failed to load or process the image"}
-    end
+    #   {:error, _reason} ->
+    #     {:error, "Failed to load or process the image"}
+    # end
+    image_binary = File.read!(upload.path)
+    params = Map.put(params, "image", image_binary)
+    {:ok, params}
   end
 
   defp handle_image_upload(params), do: {:ok, params}

@@ -12,8 +12,15 @@ defmodule PersonalPlannerWebUtils do
   end
 
   def gravatar_for(user \\ nil) do
-    if user && user.image_url && String.length(user.image_url) > 0 do
-      PersonalPlannerWeb.Endpoint.url() <> user.image_url
+    if user && user.image do
+    #if you were able to read and write to disk the below code is needed.
+    #if user && user.image_url && String.length(user.image_url) > 0 do
+      #PersonalPlannerWeb.Endpoint.url() <> user.image_url
+
+      #if not do this instead
+      encoded = Base.encode64(user.image)
+      "data:image/jpeg;base64," <> encoded
+
     else
       PersonalPlannerWeb.Endpoint.url() <> "/images/uploads/default-user.png"
     end
