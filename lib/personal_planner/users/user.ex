@@ -19,7 +19,7 @@ defmodule PersonalPlanner.Accounts.User do
     field :password_hash, :string
     field :admin, :boolean, default: false
     timestamps(type: :utc_datetime)
-
+    field :image_url, :string
     field :password, :string, virtual: true
     field :password_confirm, :string, virtual: true
     field :activated, :boolean, default: false
@@ -29,7 +29,7 @@ defmodule PersonalPlanner.Accounts.User do
   @doc false
 
   @valid_email_regex ~r/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  @attrs_to_save_or_update [:name, :email, :password, :password_confirm, :admin]
+  @attrs_to_save_or_update [:name, :email, :password, :password_confirm, :admin, :image_url]
 
   def changeset(user, attrs) do
     user

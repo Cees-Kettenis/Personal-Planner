@@ -120,12 +120,6 @@ defmodule PersonalPlannerWeb.TaskController do
     end
   end
 
-  def complete(conn, %{"id" => id}) do
-    test = get_session(conn, :manual_forwarding_url)
-    conn
-    |> AuthPlug.manual_redirect_or(~p"/tasks/")
-  end
-
   defp fetch_users_for_dropdown do
     users = Accounts.list_users_dropdown()
     [{"N/A", nil} | Enum.map(users, fn user -> {user.name, user.id} end)]

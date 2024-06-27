@@ -1,4 +1,4 @@
-<.simple_form :let={f} for={@changeset} action={@action} current_user_admin={@current_user_admin}>
+<.simple_form :let={f} for={@changeset} action={@action} current_user_admin={@current_user_admin}  multipart={true}>
   <.error :if={@changeset.action}>
     Oops, something went wrong! Please check the errors below.
   </.error>
@@ -9,6 +9,7 @@
   <%= if @current_user_admin do %>
     <.input field={f[:admin]} type="checkbox" label="is user admin?" />
   <% end %>
+  <.input field={f[:image_url]} type="file" label="upload your profile picture" class="hidden upload" />
   <:actions>
     <.button>Save</.button>
   </:actions>

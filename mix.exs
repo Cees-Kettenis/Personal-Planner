@@ -60,12 +60,13 @@ defmodule PersonalPlanner.MixProject do
       {:bandit, "~> 1.2"},
       {:timex, "~> 3.0"},
       {:argon2_elixir, "~> 3.2"},
-      {:elixir_make, "~> 0.6.0"},
+      {:elixir_make, "~> 0.8.0"},
       {:comeonin, "~> 5.3"},
       {:faker, "~> 0.18.0"},
       {:nimble_options, "~> 1.1"},
       {:flop, "~> 0.25.0"},
-      {:flop_phoenix, "~> 0.22.9"}
+      {:flop_phoenix, "~> 0.22.9"},
+      {:stb_image, "~> 0.6.9"}
     ]
   end
 

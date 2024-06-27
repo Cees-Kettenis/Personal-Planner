@@ -1,9 +1,11 @@
 <div class="mx-auto max-w-2xl">
   <div class="flex w-100">
     <div class="w-2/6 mr-2">
-      <img src={gravatar_for(@user)} />
-      <.icon name="hero-camera-solid" class="h-3 w-3" />
-      <.link href={"https://gravatar.com/profile/avatars"} class="text-sm font-semibold leading-6 hover:underline hover:text-amber-600 focus:text-amber-600 focus:underline" target="_blank">Change image</.link>
+      <img src={gravatar_for(@user)} class="h-[150px] w-[150px] user-image" />
+      <.button onclick="triggerUpload()" class="mt-1">
+        <.icon name="hero-camera-solid" class="h-5 w-5" />
+        Change image
+      </.button>
     </div>
     <div class="w-3/6">
       <.header>
@@ -18,3 +20,38 @@
 
 <.back navigate={~p"/users"}>Back to users</.back>
 </div>
+<script>
+  function triggerUpload(){
+      const hiddenButton = document.querySelector('.upload').querySelector('input');
+      console.log(hiddenButton)
+      hiddenButton.click();
+  }
+  document.getElementById('user_image_url').addEventListener('change', function () {
+    console.log("changed")
+     const file = this.files[0]; // Get the selected file
+    if (file) {
+        const reader = new FileReader(); // Create a FileReader instance
+        reader.onload = function(e) {
+            document.querySelector('.user-image').src = e.target.result; // Set the src attribute of the img tag
+        };
+        reader.readAsDataURL(file); // Read the selected file as a data URL
+    }
+
+    if (file) {
+        const reader = new FileReader(); // Create a FileReader instance
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 100;
+                canvas.height = 100;
+                ctx.drawImage(img, 0, 0, 100, 100);
+               document.querySelector('.user-image').src = canvas.toDataURL();
+            };
+            img.src = e.target.result; // Set the src attribute of the img tag
+        };
+        reader.readAsDataURL(file); // Read the selected file as a data URL
+    }
+  });
+</script>

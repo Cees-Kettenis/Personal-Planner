@@ -11,18 +11,11 @@ defmodule PersonalPlannerWebUtils do
     end
   end
 
-  defp md5_hexdigest(str) do
-    :crypto.hash(:md5, str)
-    |> Base.encode16(case: :lower)
-  end
-
-  def gravatar_for(user) do
-    if user do
-      #TODO implement user image logic so that images can be stored in house instead on gravatar
-      gravatar_id = String.downcase(user.email) |> md5_hexdigest()
-      ["https://secure.gravatar.com/avatar/", gravatar_id]
+  def gravatar_for(user \\ nil) do
+    if user && user.image_url && String.length(user.image_url) > 0 do
+      PersonalPlannerWeb.Endpoint.url() <> user.image_url
     else
-      PersonalPlannerWeb.Endpoint.url() <> "/images/default-user.png"
+      PersonalPlannerWeb.Endpoint.url() <> "/images/uploads/default-user.png"
     end
 
   end
