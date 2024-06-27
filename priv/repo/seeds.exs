@@ -15,6 +15,7 @@ alias PersonalPlanner.Task
 
 passwordhash = Argon2.hash_pwd_salt("foobar")
 date = DateTime.utc_now() |> DateTime.truncate(:second)
+taskdate = Date.utc_today()
 
 additional_user = %User{
   name: "Cees Kettenis",
@@ -55,7 +56,7 @@ PersonalPlanner.Repo.insert(additional_user)
 #     description: Faker.Lorem.paragraph(1..2),
 #     sequence: n,
 #     task_type: rem(n, 2),
-#     due_date: date,
+#     due_date: taskdate,
 #     creator_id: user.id,
 #     inserted_at: date,
 #     updated_at: date,
